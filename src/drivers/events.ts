@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Rx from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import {
 	Sinks,
 	Sources,
@@ -17,16 +17,16 @@ export type EventDefinition = {
 };
 
 export interface EventSink extends Sinks {
-    events: Rx.Observable<EventDefinition>
+    events: Observable<EventDefinition>
 };
 
 export interface EventSourceDefinition extends SourceDefinition {
-    source: Rx.Observable<EventDefinition>,
+    source: Observable<EventDefinition>,
 	dispose: DisposeFn,
 };
 
 export interface EventSource {
-    events: Rx.Observable<EventDefinition>,
+    events: Observable<EventDefinition>,
 };
 
 export interface EventDriver extends Driver {
@@ -37,17 +37,17 @@ export interface EventDriverDefinition extends Drivers {
     events: EventDriver,
 };
 
-function select(stream: Rx.Observable<EventDefinition>, category: string) {
+function select(stream: Observable<EventDefinition>, category: string) {
     return stream.filter((eventDef) => eventDef.category === category)
         .map((eventDef) => eventDef.event);
 };
 
 export type Selectable<E> = {
-    stream: Rx.Observable<EventDefinition>,
-    select: (category: keyof E) => Rx.Observable<any>,
+    stream: Observable<EventDefinition>,
+    select: (category: keyof E) => Observable<any>,
 };
 
-export function selectable<E>(stream: Rx.Observable<EventDefinition>): Selectable<E> {
+export function selectable<E>(stream: Observable<EventDefinition>): Selectable<E> {
     return {
         stream,
         select: (category) => select(stream, category),

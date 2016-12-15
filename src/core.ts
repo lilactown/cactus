@@ -3,7 +3,7 @@ import * as React from 'react';
 import { mapValues, map, forEach } from 'lodash';
 
 export type DisposeFn = () => void;
-type Source<T> = Rx.Observable<T>;
+export type Source<T> = Rx.Observable<T>;
 export interface SourceDefinition {
 	source: Rx.Observable<any>,
 	dispose: DisposeFn

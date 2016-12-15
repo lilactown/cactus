@@ -8,8 +8,12 @@ export interface PropsMap {
 	[K: string]: (state: any) => any
 };
 
-export function createAppComponent<P>(main: Main, drivers: MVI.Drivers, propsMap: PropsMap, displayName?: string) {
-	return class App extends React.Component<P, any> implements React.ComponentLifecycle<P, any> {
+export interface App {};
+
+export function createAppComponent<P>(
+	main: Main, drivers: MVI.Drivers, propsMap: PropsMap, displayName?: string
+): App {
+	return class App extends React.Component<P, any> implements App {
 		static displayName = `App(${displayName || ''})`
 		component: React.ComponentClass<P> | React.StatelessComponent<any> | string;
         dispose: MVI.DisposeFn;

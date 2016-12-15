@@ -4,5 +4,17 @@
   "description": "A functional, reactive javascript framework",
   "main": "index.js",
   "author": "Will Acton",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.2",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "rxjs": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.43",
+    "@types/react": "^0.14.55",
+    "@types/react-dom": "^0.14.19",
+    "typescript": "^2.1.4"
+  }
 }

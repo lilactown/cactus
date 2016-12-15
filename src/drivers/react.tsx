@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Rx from 'rxjs/rx';
-import { Component } from '../types/Component';
-import { ViewDelta } from '../types/Delta';
+import * as Rx from 'rxjs/Rx';
+import { map } from 'lodash';
+import { Component } from '../component';
+import { ViewDelta } from '../delta';
 import {
 	Sinks,
 	Sources,
@@ -11,11 +12,11 @@ import {
 	Driver,
 	DisposeFn,
 	App,
-} from '../framework';
+} from '../core';
 
 
 export interface ReactSink extends Sinks {
-	reactDOM: Rx.Observable<ViewDelta<any>>;
+	render: Rx.Observable<ViewDelta<any>>,
 };
 
 export interface ReactSourceDefinition extends SourceDefinition {
@@ -24,7 +25,7 @@ export interface ReactSourceDefinition extends SourceDefinition {
 }
 
 export interface ReactSource {
-	reactDOM: Rx.Observable<void>,
+	render: Rx.Observable<void>,
 };
 
 export interface ReactDriver extends Driver {
@@ -32,14 +33,14 @@ export interface ReactDriver extends Driver {
 };
 
 export interface ReactDriverDefinition extends Drivers {
-	reactDOM: ReactDriver,
+	render: ReactDriver,
 };
 
 export function makeReactDOMDriver(DOMNode: Element): ReactDriver {
 	console.log('[ReactDOMDriver] initiated');
 	return (sinkProxies: ReactSink) => {
 		console.log('[ReactDOMDriver] rendering started');
-		const proxy = sinkProxies.reactDOM;
+		const proxy = sinkProxies.render;
 		const source = proxy.map(({ View, state }) => {
 			console.log('[ReactDOMDriver] rendering');
 			ReactDOM.render(<View {...state} />, DOMNode);
@@ -53,11 +54,17 @@ export function makeReactDOMDriver(DOMNode: Element): ReactDriver {
 	};
 }
 
+export function makeReactEventDriver() {
+	return (sinkProxies: ReactSink) => {
+		
+	}
+}
+
 export function makeReactStateDriver(cb: (v: any) => void): ReactDriver {
 	console.log('[ReactStateDriver] initiated');
 	return (sinkProxies: ReactSink) => {
 		console.log('[ReactStateDriver] state change started');
-		const proxy = sinkProxies.reactDOM;
+		const proxy = sinkProxies.render;
 		const source = proxy.map(({ View, state }) => {
 			console.log('[ReactStateDriver] changing state');
 			cb({ View, state });
@@ -66,17 +73,7 @@ export function makeReactStateDriver(cb: (v: any) => void): ReactDriver {
 		const dispose = () => subscription.unsubscribe();
 		return {
 			source,
-			dispose,	
-		};
-	};
-}
-
-// connectedView :: View -> Observable<State> -> Observable<{View, State}>
-export function connectedView<P, E>(View: Component, events: E) {
-	return function connectViewTo(model: Rx.Observable<P>) {
-		return {
-			view$: model.map((state: P): ViewDelta<P> => ({ View, state })),
-			events,
+			dispose,
 		};
 	};
 }

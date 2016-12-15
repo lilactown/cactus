@@ -26,9 +26,7 @@ export interface SinkProxies {
 	[L: string]: Rx.Subject<any>,
 }
 
-export interface RunFn {
-	(): DisposeFn;
-};
+export type RunFn = () => DisposeFn;
 
 // export interface AppExecution {
 // 	sinks: Sinks,

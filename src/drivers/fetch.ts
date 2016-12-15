@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 import * as Rx from 'rxjs/Rx';
-import { Sources, SourceDefinition, Sinks, Drivers, Driver, DisposeFn } from '../framework';
+import { Sources, SourceDefinition, Sinks, Drivers, Driver, DisposeFn } from '../core';
 
 export interface FetchSink extends Sinks {
     fetch: Rx.Observable<FetchParams>,

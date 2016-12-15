@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as MVI from './framework';
-import * as RD from './drivers/ReactDriver';
+import * as MVI from './core';
+import * as RD from './drivers/react';
 import { forEach } from 'lodash';
 
 export type Main = (sources: MVI.Sources) => MVI.Sinks;

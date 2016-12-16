@@ -9,11 +9,12 @@
     "build": "./build.sh"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.43",
     "@types/react": "^0.14.55",
     "@types/react-dom": "^0.14.19",
     "@types/whatwg-fetch": "^0.0.33",
-    "@types/lodash": "^4.14.43",
     "lodash": "^4.17.2",
+    "observe-component": "^3.3.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "rxjs": "^5.0.1",

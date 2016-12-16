@@ -10,11 +10,7 @@ import {
 	DisposeFn,
 	App,
 } from '../core';
-
-export type EventDefinition = {
-	category: string,
-	event: any,
-};
+import { EventDefinition } from '../events';
 
 export interface EventSink extends Sinks {
     events: Observable<EventDefinition>
@@ -36,23 +32,6 @@ export interface EventDriver extends Driver {
 export interface EventDriverDefinition extends Drivers {
     events: EventDriver,
 };
-
-function select(stream: Observable<EventDefinition>, category: string) {
-    return stream.filter((eventDef) => eventDef.category === category)
-        .map((eventDef) => eventDef.event);
-};
-
-export type Selectable<E> = {
-    stream: Observable<EventDefinition>,
-    select: (category: keyof E) => Observable<any>,
-};
-
-export function selectable<E>(stream: Observable<EventDefinition>): Selectable<E> {
-    return {
-        stream,
-        select: (category) => select(stream, category),
-    };
-}
 
 export function makeEventDriver() {
     console.log('[EventDriver] initiated');

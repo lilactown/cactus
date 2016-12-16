@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as Rx from 'rxjs/Rx';
 import { map } from 'lodash';
-import { Component } from '../component';
-import { ViewDelta } from '../delta';
+import { Component } from '../react';
+import { ViewDelta } from '../react';
 import {
 	Sinks,
 	Sources,
@@ -15,30 +15,30 @@ import {
 } from '../core';
 
 
-export interface ReactSink extends Sinks {
+export interface RenderSink extends Sinks {
 	render: Rx.Observable<ViewDelta<any>>,
 };
 
-export interface ReactSourceDefinition extends SourceDefinition {
+export interface RenderSourceDefinition extends SourceDefinition {
 	source: Rx.Observable<void>,
 	dispose: DisposeFn,
 }
 
-export interface ReactSource {
+export interface RenderSource {
 	render: Rx.Observable<void>,
 };
 
-export interface ReactDriver extends Driver {
-	(sinks: ReactSink): ReactSourceDefinition;
+export interface RenderDriver extends Driver {
+	(sinks: RenderSink): RenderSourceDefinition;
 };
 
-export interface ReactDriverDefinition extends Drivers {
-	render: ReactDriver,
+export interface RenderDriverDefinition extends Drivers {
+	render: RenderDriver,
 };
 
-export function makeReactDOMDriver(DOMNode: Element): ReactDriver {
+export function makeReactDOMDriver(DOMNode: Element): RenderDriver {
 	console.log('[ReactDOMDriver] initiated');
-	return (sinkProxies: ReactSink) => {
+	return (sinkProxies: RenderSink) => {
 		console.log('[ReactDOMDriver] rendering started');
 		const proxy = sinkProxies.render;
 		const source = proxy.map(({ View, state }) => {
@@ -50,24 +50,6 @@ export function makeReactDOMDriver(DOMNode: Element): ReactDriver {
 		return {
 			source,
 			dispose,	
-		};
-	};
-}
-
-export function makeReactStateDriver(cb: (v: any) => void): ReactDriver {
-	console.log('[ReactStateDriver] initiated');
-	return (sinkProxies: ReactSink) => {
-		console.log('[ReactStateDriver] state change started');
-		const proxy = sinkProxies.render;
-		const source = proxy.map(({ View, state }) => {
-			console.log('[ReactStateDriver] changing state');
-			cb({ View, state });
-		});
-		const subscription = source.subscribe();
-		const dispose = () => subscription.unsubscribe();
-		return {
-			source,
-			dispose,
 		};
 	};
 }

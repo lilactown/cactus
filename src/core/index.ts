@@ -26,13 +26,8 @@ export interface SinkProxies {
 	[L: string]: Rx.Subject<any>,
 }
 
+export type Main = (sources: Sources) => Sinks;
 export type RunFn = () => DisposeFn;
-
-// export interface AppExecution {
-// 	sinks: Sinks,
-// 	sources: Sources,
-// 	run: RunFn,
-// };
 
 function createProxies(drivers: Drivers): SinkProxies {
 	return mapValues(drivers, (driver, driverName) => {
@@ -69,7 +64,7 @@ function link(sinks: Sinks, sinkProxies: SinkProxies): DisposeFn {
 }
 
 export function App<S extends Sources, D extends Drivers>(
-	main: (sources?: S) => Sinks,
+	main: Main,
 	drivers: D
 ) {
 	console.log('[App]', 'initialized');

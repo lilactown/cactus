@@ -29,3 +29,4 @@ export declare function App<S extends Sources, D extends Drivers>(main: Main, dr
     sources: S;
     run: () => () => void;
 };
+export declare function run<S extends Sources, D extends Drivers>(main: Main, drivers: D): void;

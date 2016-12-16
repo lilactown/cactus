@@ -85,3 +85,11 @@ export function App<S extends Sources, D extends Drivers>(
 		},
 	};
 }
+
+export function run<S extends Sources, D extends Drivers>(
+	main: Main,
+	drivers: D
+) {
+	const { run } = App(main, drivers);
+	run();
+}

@@ -51,10 +51,8 @@ function createSinkDisposal(definitions: _.Dictionary<SourceDefinition>) {
 }
 
 function link(sinks: Sinks, sinkProxies: SinkProxies): DisposeFn {
-	console.log('[link] linking');
 	const subscriptions = map(sinks, (sink, name) => {
 		const proxy = sinkProxies[name];
-		console.log('[link] subscribing to proxies', name);
 		return sink.subscribe(proxy);
 	});
 
@@ -67,8 +65,6 @@ export function App<S extends Sources, D extends Drivers>(
 	main: Main,
 	drivers: D
 ) {
-	console.log('[App]', 'initialized');
-
 	const sinkProxies = createProxies(drivers);
 	const sourceDefs = executeDrivers(drivers, sinkProxies);
 
@@ -79,7 +75,6 @@ export function App<S extends Sources, D extends Drivers>(
 		sinks,
 		sources,
 		run: () => {
-			console.log('[run] running');
 			const disposeProxies = link(sinks, sinkProxies);
 			return () => {
 				disposeSinks();

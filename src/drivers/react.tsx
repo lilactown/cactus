@@ -37,12 +37,9 @@ export interface RenderDriverDefinition extends Drivers {
 };
 
 export function makeReactDOMDriver(DOMNode: Element): RenderDriver {
-	console.log('[ReactDOMDriver] initiated');
 	return (sinkProxies: RenderSink) => {
-		console.log('[ReactDOMDriver] rendering started');
 		const proxy = sinkProxies.render;
 		const source = proxy.map(({ View, state }) => {
-			console.log('[ReactDOMDriver] rendering');
 			ReactDOM.render(<View {...state} />, DOMNode);
 		});
 		const subscription = source.subscribe();

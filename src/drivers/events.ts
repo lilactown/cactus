@@ -34,9 +34,7 @@ export interface EventDriverDefinition extends Drivers {
 };
 
 export function makeEventDriver() {
-    console.log('[EventDriver] initiated');
 	return (sinkProxies: EventSink) => {
-		console.log('[EventDriver] state change started');
 		const proxy = sinkProxies.events;
         const source = proxy;
 		const subscription = source.subscribe();

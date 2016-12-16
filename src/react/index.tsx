@@ -21,8 +21,6 @@ export interface PropsMap {
 	[K: string]: (state: any) => any
 };
 
-export interface App {};
-
 function mergeEvents(events: Events): Observable<EventDefinition> {
 	const eventDefs = map(events, (event$, key: string) => {
 		return event$.map((ev): EventDefinition => ({
@@ -45,7 +43,7 @@ export function connectedView<P>(View: Component, events: Events) {
 
 export function createAppComponent<P>(
 	main: Core.Main, drivers: Core.Drivers, propsMap: PropsMap, displayName?: string
-): App {
+): any {
 	return class App extends React.Component<P, any> implements App {
 		static displayName = `App(${displayName || ''})`
 		component: React.ComponentClass<P> | React.StatelessComponent<any> | string;

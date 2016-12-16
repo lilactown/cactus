@@ -28,7 +28,6 @@ export interface FetchDriverDefinition extends Drivers {
 	fetch: FetchDriver,
 };
 
-
 export function makeFetchDriver(): FetchDriver {
     return (sinkProxies: FetchSink) => {
         const source = sinkProxies.fetch

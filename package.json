@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Will Acton",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "@types/whatwg-fetch": "^0.0.33",
     "@types/react": "^0.14.55",

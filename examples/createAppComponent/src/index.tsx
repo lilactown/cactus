@@ -44,6 +44,5 @@ const Counter = Cactus.createAppComponent(main, {
     events: Cactus.makeEventDriver(),
 });
 
-console.log(Counter);
 // render it as you do
 render(<Counter />, document.getElementById('app'));

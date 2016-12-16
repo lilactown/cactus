@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 // re-export observe-component library
 export { observeComponent, fromComponent } from 'observe-component/rxjs';

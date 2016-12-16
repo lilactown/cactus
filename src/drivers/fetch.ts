@@ -1,18 +1,18 @@
 import 'whatwg-fetch';
-import * as Rx from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Sources, SourceDefinition, Sinks, Drivers, Driver, DisposeFn } from '../core';
 
 export interface FetchSink extends Sinks {
-    fetch: Rx.Observable<FetchParams>,
+    fetch: Observable<FetchParams>,
 };
 
 export interface FetchSourceDefinition extends SourceDefinition {
-    source: Rx.Observable<any>,
+    source: Observable<any>,
     dispose: DisposeFn
 }
 
 export interface FetchSource extends Sources {
-    fetch: Rx.Observable<any>,
+    fetch: Observable<any>,
 }
 
 export interface FetchDriver extends Driver {
@@ -32,7 +32,7 @@ export function makeFetchDriver(): FetchDriver {
     return (sinkProxies: FetchSink) => {
         const source = sinkProxies.fetch
             .switchMap((params: FetchParams) => {
-                return Rx.Observable.fromPromise(fetch((params.url)))
+                return Observable.fromPromise(fetch((params.url)))
             });
         const subscription = source.subscribe();
         const dispose = () => subscription.unsubscribe();
@@ -48,9 +48,9 @@ export function makeJSONDriver(): FetchDriver {
     return (sinkProxies: FetchSink) => {
         const source = sinkProxies.fetch
             .flatMap((params: FetchParams) => {
-                return Rx.Observable.fromPromise(fetch(params.url, params.options))
+                return Observable.fromPromise(fetch(params.url, params.options))
             })
-            .flatMap((res: Response) => Rx.Observable.fromPromise(res.json()));
+            .flatMap((res: Response) => Observable.fromPromise(res.json()));
         const subscription = source.subscribe();
         const dispose = () => subscription.unsubscribe();
 

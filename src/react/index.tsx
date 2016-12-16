@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/merge';
 import * as React from 'react';
 import { forEach, map } from 'lodash';
 import * as Core from '../core';

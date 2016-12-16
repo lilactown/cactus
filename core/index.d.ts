@@ -1,5 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 export declare type DisposeFn = () => void;
 export declare type Source<T> = Observable<T>;
 export interface SourceDefinition {

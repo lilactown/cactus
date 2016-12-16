@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/merge';
 import * as React from 'react';
 import * as Core from '../core';
 import { Events, EventDefinition } from '../events';

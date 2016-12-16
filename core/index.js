@@ -1,5 +1,6 @@
 "use strict";
 const Subject_1 = require("rxjs/Subject");
+require("rxjs/add/operator/map");
 const lodash_1 = require("lodash");
 ;
 ;

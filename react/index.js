@@ -8,6 +8,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 const Observable_1 = require("rxjs/Observable");
+require("rxjs/add/observable/merge");
 const React = require("react");
 const lodash_1 = require("lodash");
 const Core = require("../core");

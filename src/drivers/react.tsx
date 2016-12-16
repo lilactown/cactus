@@ -54,12 +54,6 @@ export function makeReactDOMDriver(DOMNode: Element): ReactDriver {
 	};
 }
 
-export function makeReactEventDriver() {
-	return (sinkProxies: ReactSink) => {
-		
-	}
-}
-
 export function makeReactStateDriver(cb: (v: any) => void): ReactDriver {
 	console.log('[ReactStateDriver] initiated');
 	return (sinkProxies: ReactSink) => {

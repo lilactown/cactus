@@ -3,8 +3,8 @@
 A framework for developing front-end applications with Facebook's
 [React](https://facebook.github.io/react/) library using the Model-View-Intent architecture.
 
-Using functional, reactive design, Cactus allows you to create components
-and applications that are easy to reason about.
+Cactus leverages [RxJS](https://github.com/ReactiveX/rxjs) and functional, reactive design
+to help you to create components and applications that are easy to reason about.
 
 ## Installation
 

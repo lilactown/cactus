@@ -22,10 +22,8 @@ function createSinkDisposal(definitions) {
     return () => disposes.forEach((dispose) => dispose());
 }
 function link(sinks, sinkProxies) {
-    console.log('[link] linking');
     const subscriptions = lodash_1.map(sinks, (sink, name) => {
         const proxy = sinkProxies[name];
-        console.log('[link] subscribing to proxies', name);
         return sink.subscribe(proxy);
     });
     return () => {
@@ -33,7 +31,6 @@ function link(sinks, sinkProxies) {
     };
 }
 function App(main, drivers) {
-    console.log('[App]', 'initialized');
     const sinkProxies = createProxies(drivers);
     const sourceDefs = executeDrivers(drivers, sinkProxies);
     const disposeSinks = createSinkDisposal(sourceDefs);
@@ -43,7 +40,6 @@ function App(main, drivers) {
         sinks,
         sources,
         run: () => {
-            console.log('[run] running');
             const disposeProxies = link(sinks, sinkProxies);
             return () => {
                 disposeSinks();

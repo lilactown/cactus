@@ -14,12 +14,9 @@ const ReactDOM = require("react-dom");
 ;
 ;
 function makeReactDOMDriver(DOMNode) {
-    console.log('[ReactDOMDriver] initiated');
     return (sinkProxies) => {
-        console.log('[ReactDOMDriver] rendering started');
         const proxy = sinkProxies.render;
         const source = proxy.map(({ View, state }) => {
-            console.log('[ReactDOMDriver] rendering');
             ReactDOM.render(React.createElement(View, __assign({}, state)), DOMNode);
         });
         const subscription = source.subscribe();

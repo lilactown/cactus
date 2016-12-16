@@ -1,5 +1,5 @@
 "use strict";
-const Rx = require("rxjs/Rx");
+const Subject_1 = require("rxjs/Subject");
 const lodash_1 = require("lodash");
 ;
 ;
@@ -8,7 +8,7 @@ const lodash_1 = require("lodash");
 ;
 function createProxies(drivers) {
     return lodash_1.mapValues(drivers, () => {
-        return new Rx.Subject();
+        return new Subject_1.Subject();
     });
 }
 function executeDrivers(drivers, sinkProxies) {

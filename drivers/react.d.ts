@@ -1,15 +1,15 @@
-import * as Rx from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { ViewDelta } from '../react';
 import { Sinks, SourceDefinition, Drivers, Driver, DisposeFn } from '../core';
 export interface RenderSink extends Sinks {
-    render: Rx.Observable<ViewDelta<any>>;
+    render: Observable<ViewDelta<any>>;
 }
 export interface RenderSourceDefinition extends SourceDefinition {
-    source: Rx.Observable<void>;
+    source: Observable<void>;
     dispose: DisposeFn;
 }
 export interface RenderSource {
-    render: Rx.Observable<void>;
+    render: Observable<void>;
 }
 export interface RenderDriver extends Driver {
     (sinks: RenderSink): RenderSourceDefinition;

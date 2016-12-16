@@ -1,6 +1,6 @@
 "use strict";
 require("whatwg-fetch");
-const Rx = require("rxjs/Rx");
+const Observable_1 = require("rxjs/Observable");
 ;
 ;
 ;
@@ -9,7 +9,7 @@ function makeFetchDriver() {
     return (sinkProxies) => {
         const source = sinkProxies.fetch
             .switchMap((params) => {
-            return Rx.Observable.fromPromise(fetch((params.url)));
+            return Observable_1.Observable.fromPromise(fetch((params.url)));
         });
         const subscription = source.subscribe();
         const dispose = () => subscription.unsubscribe();
@@ -24,9 +24,9 @@ function makeJSONDriver() {
     return (sinkProxies) => {
         const source = sinkProxies.fetch
             .flatMap((params) => {
-            return Rx.Observable.fromPromise(fetch(params.url, params.options));
+            return Observable_1.Observable.fromPromise(fetch(params.url, params.options));
         })
-            .flatMap((res) => Rx.Observable.fromPromise(res.json()));
+            .flatMap((res) => Observable_1.Observable.fromPromise(res.json()));
         const subscription = source.subscribe();
         const dispose = () => subscription.unsubscribe();
         return {

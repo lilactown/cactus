@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Sinks, SourceDefinition, Drivers, Driver, DisposeFn } from '../core';
 import { EventDefinition } from '../events';
 export interface EventSink extends Sinks {

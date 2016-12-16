@@ -8,7 +8,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 const React = require("react");
-const ReactDOM = require("react-dom");
+const react_dom_1 = require("react-dom");
 ;
 ;
 ;
@@ -17,7 +17,7 @@ function makeReactDOMDriver(DOMNode) {
     return (sinkProxies) => {
         const proxy = sinkProxies.render;
         const source = proxy.map(({ View, state }) => {
-            ReactDOM.render(React.createElement(View, __assign({}, state)), DOMNode);
+            react_dom_1.render(React.createElement(View, __assign({}, state)), DOMNode);
         });
         const subscription = source.subscribe();
         const dispose = () => subscription.unsubscribe();

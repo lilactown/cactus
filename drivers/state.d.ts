@@ -1,15 +1,15 @@
-import * as Rx from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { ViewDelta } from '../react';
 import { Sinks, SourceDefinition, Drivers, Driver, DisposeFn } from '../core';
 export interface StateSink extends Sinks {
-    state: Rx.Observable<ViewDelta<any>>;
+    state: Observable<ViewDelta<any>>;
 }
 export interface StateSourceDefinition extends SourceDefinition {
-    source: Rx.Observable<void>;
+    source: Observable<void>;
     dispose: DisposeFn;
 }
 export interface StateSource {
-    state: Rx.Observable<void>;
+    state: Observable<void>;
 }
 export interface StateDriver extends Driver {
     (sinks: StateSink): StateSourceDefinition;

@@ -1,8 +1,9 @@
-import * as Rx from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 export declare type DisposeFn = () => void;
-export declare type Source<T> = Rx.Observable<T>;
+export declare type Source<T> = Observable<T>;
 export interface SourceDefinition {
-    source: Rx.Observable<any>;
+    source: Observable<any>;
     dispose: DisposeFn;
 }
 export interface Sources {
@@ -15,10 +16,10 @@ export interface Drivers {
     [K: string]: Driver;
 }
 export interface Sinks {
-    [J: string]: Rx.Observable<any>;
+    [J: string]: Observable<any>;
 }
 export interface SinkProxies {
-    [L: string]: Rx.Subject<any>;
+    [L: string]: Subject<any>;
 }
 export declare type Main = (sources: Sources) => Sinks;
 export declare type RunFn = () => DisposeFn;

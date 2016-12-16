@@ -7,7 +7,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-const Rx_1 = require("rxjs/Rx");
+const Observable_1 = require("rxjs/Observable");
 const React = require("react");
 const lodash_1 = require("lodash");
 const Core = require("../core");
@@ -21,7 +21,7 @@ function mergeEvents(events) {
             event: ev,
         }));
     });
-    const stream = Rx_1.Observable.merge(...eventDefs);
+    const stream = Observable_1.Observable.merge(...eventDefs);
     return stream;
 }
 function connectedView(View, events) {

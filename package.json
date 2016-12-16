@@ -1,5 +1,5 @@
 {
-  "name": "cactus",
+  "name": "@cactoid/cactus",
   "version": "0.0.1",
   "description": "A functional, reactive javascript framework",
   "main": "index.js",

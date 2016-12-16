@@ -20,7 +20,7 @@ export function createAppComponent<P>(
 		componentWillMount() {
             const extDrivers = {
                 ...drivers,
-                reactDOM: RD.makeReactStateDriver(({ View, state }) => {
+                render: RD.makeReactStateDriver(({ View, state }) => {
                     this.setState(state);
                     if (!this.component) {
                         this.component = View;

@@ -1,5 +1,4 @@
-import * as Cactus from '../../../core';
-import { makeReactDOMDriver } from '../../../drivers/react';
+import { run, makeReactDOMDriver } from '../../../';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import * as React from 'react';
@@ -19,6 +18,6 @@ function main() {
     };
 }
 
-Cactus.App(main, {
+run(main, {
     render: makeReactDOMDriver(document.getElementById('app')),
-}).run();
+});

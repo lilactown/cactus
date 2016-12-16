@@ -1,14 +1,10 @@
-import { App } from '../../../core';
-import { observeComponent, fromComponent, selectable } from '../../../events';
-import { connectedView } from '../../../react';
-import { makeEventDriver } from '../../../drivers/events';
-import { makeReactDOMDriver } from '../../../drivers/react';
+import * as Cactus from '../../../';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import * as React from 'react';
 
-const IncButton = observeComponent('onClick')('button');
-const DecButton = observeComponent('onClick')('button');
+const IncButton = Cactus.observeComponent('onClick')('button');
+const DecButton = Cactus.observeComponent('onClick')('button');
 
 function Counter({ count }) {
     return (
@@ -20,13 +16,13 @@ function Counter({ count }) {
     );
 }
 
-const view = connectedView(Counter, {
-    incButton: fromComponent(IncButton),
-    decButton: fromComponent(DecButton),
+const view = Cactus.connectedView(Counter, {
+    incButton: Cactus.fromComponent(IncButton),
+    decButton: Cactus.fromComponent(DecButton),
 });
 
 function main(sources) {
-    const actions = selectable<any>(sources.events);
+    const actions = Cactus.selectable<any>(sources.events);
     const add$ = actions.select('incButton').map(() => 1);
     const dec$ = actions.select('decButton').map(() => -1);
     const count$ = Observable
@@ -42,7 +38,7 @@ function main(sources) {
     };
 }
 
-App(main, {
-    render: makeReactDOMDriver(document.getElementById('app')),
-    events: makeEventDriver(),
-}).run();
+Cactus.run(main, {
+    render: Cactus.makeReactDOMDriver(document.getElementById('app')),
+    events: Cactus.makeEventDriver(),
+});

@@ -23,7 +23,7 @@ export interface PropsMap {
 export interface App {};
 
 function mergeEvents(events: Events): Observable<EventDefinition> {
-	const eventDefs = map(events, (event$, key) => {
+	const eventDefs = map(events, (event$, key: string) => {
 		return event$.map((ev): EventDefinition => ({
 			category: key,
 			event: ev,
@@ -57,7 +57,7 @@ export function createAppComponent<P>(
                     if (!this.component) {
                         this.component = View;
                     }
-					forEach(propsMap, (v, k) => {
+					forEach(propsMap, (v, k: string) => {
 						if (this.props[k]) {
 							this.props[k](v(state));
 						}

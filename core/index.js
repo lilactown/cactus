@@ -7,12 +7,12 @@ const lodash_1 = require("lodash");
 ;
 ;
 function createProxies(drivers) {
-    return lodash_1.mapValues(drivers, (driver, driverName) => {
+    return lodash_1.mapValues(drivers, () => {
         return new Rx.Subject();
     });
 }
 function executeDrivers(drivers, sinkProxies) {
-    return lodash_1.mapValues(drivers, (driver, key) => driver(sinkProxies));
+    return lodash_1.mapValues(drivers, (driver) => driver(sinkProxies));
 }
 function getSources(definitions) {
     return lodash_1.mapValues(definitions, (definition) => definition.source);

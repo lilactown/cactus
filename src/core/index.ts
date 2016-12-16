@@ -30,13 +30,13 @@ export type Main = (sources: Sources) => Sinks;
 export type RunFn = () => DisposeFn;
 
 function createProxies(drivers: Drivers): SinkProxies {
-	return mapValues(drivers, (driver, driverName) => {
+	return mapValues(drivers, () => {
 		return new Rx.Subject();
 	});
 }
 
 function executeDrivers(drivers: Drivers, sinkProxies: SinkProxies) {
-	return mapValues(drivers, (driver, key) =>
+	return mapValues(drivers, (driver) =>
 		driver(sinkProxies)
 	);
 }
@@ -51,7 +51,7 @@ function createSinkDisposal(definitions: _.Dictionary<SourceDefinition>) {
 }
 
 function link(sinks: Sinks, sinkProxies: SinkProxies): DisposeFn {
-	const subscriptions = map(sinks, (sink, name) => {
+	const subscriptions = map(sinks, (sink, name: string) => {
 		const proxy = sinkProxies[name];
 		return sink.subscribe(proxy);
 	});

@@ -16,4 +16,4 @@ export declare function connectedView<P>(View: Component, events: Events): (mode
     view$: Observable<ViewDelta<P>>;
     events$: Observable<EventDefinition>;
 };
-export declare function createAppComponent<P>(main: Core.Main, drivers: Core.Drivers, propsMap: PropsMap, displayName?: string): any;
+export declare function createAppComponent<P>(main: Core.Main, drivers: Core.Drivers, propsMap?: PropsMap, displayName?: string): any;

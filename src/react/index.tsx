@@ -42,7 +42,7 @@ export function connectedView<P>(View: Component, events: Events) {
 }
 
 export function createAppComponent<P>(
-	main: Core.Main, drivers: Core.Drivers, propsMap: PropsMap, displayName?: string
+	main: Core.Main, drivers: Core.Drivers, propsMap?: PropsMap, displayName?: string
 ): any {
 	return class App extends React.Component<P, any> implements App {
 		static displayName = `App(${displayName || ''})`
@@ -56,11 +56,13 @@ export function createAppComponent<P>(
                     if (!this.component) {
                         this.component = View;
                     }
-					forEach(propsMap, (v, k: string) => {
-						if (this.props[k]) {
-							this.props[k](v(state));
-						}
-					});
+					if (propsMap) {
+						forEach(propsMap, (v, k: string) => {
+							if (this.props[k]) {
+								this.props[k](v(state));
+							}
+						});
+					}
                 }),
             }
 			const { run } = Core.App<Core.Sources, Core.Drivers>(main, extDrivers);

@@ -41,11 +41,13 @@ function createAppComponent(main, drivers, propsMap, displayName) {
                         if (!this.component) {
                             this.component = View;
                         }
-                        lodash_1.forEach(propsMap, (v, k) => {
-                            if (this.props[k]) {
-                                this.props[k](v(state));
-                            }
-                        });
+                        if (propsMap) {
+                            lodash_1.forEach(propsMap, (v, k) => {
+                                if (this.props[k]) {
+                                    this.props[k](v(state));
+                                }
+                            });
+                        }
                     }) });
                 const { run } = Core.App(main, extDrivers);
                 this.dispose = run();

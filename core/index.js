@@ -6,11 +6,6 @@ const lodash_1 = require("lodash");
 ;
 ;
 ;
-// export interface AppExecution {
-// 	sinks: Sinks,
-// 	sources: Sources,
-// 	run: RunFn,
-// };
 function createProxies(drivers) {
     return lodash_1.mapValues(drivers, (driver, driverName) => {
         return new Rx.Subject();

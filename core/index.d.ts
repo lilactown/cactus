@@ -20,8 +20,9 @@ export interface Sinks {
 export interface SinkProxies {
     [L: string]: Rx.Subject<any>;
 }
+export declare type Main = (sources: Sources) => Sinks;
 export declare type RunFn = () => DisposeFn;
-export declare function App<S extends Sources, D extends Drivers>(main: (sources?: S) => Sinks, drivers: D): {
+export declare function App<S extends Sources, D extends Drivers>(main: Main, drivers: D): {
     sinks: Sinks;
     sources: S;
     run: () => () => void;

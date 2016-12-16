@@ -12,10 +12,8 @@ export interface ViewDelta<P> {
 export interface PropsMap {
     [K: string]: (state: any) => any;
 }
-export interface App {
-}
 export declare function connectedView<P>(View: Component, events: Events): (model: Observable<P>) => {
     view$: Observable<ViewDelta<P>>;
     events$: Observable<EventDefinition>;
 };
-export declare function createAppComponent<P>(main: Core.Main, drivers: Core.Drivers, propsMap: PropsMap, displayName?: string): App;
+export declare function createAppComponent<P>(main: Core.Main, drivers: Core.Drivers, propsMap: PropsMap, displayName?: string): any;

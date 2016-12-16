@@ -14,7 +14,6 @@ const lodash_1 = require("lodash");
 const Core = require("../core");
 const state_1 = require("../drivers/state");
 ;
-;
 function mergeEvents(events) {
     const eventDefs = lodash_1.map(events, (event$, key) => {
         return event$.map((ev) => ({

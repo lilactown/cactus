@@ -27,6 +27,12 @@ to problems that this framework shouldn't concern it with, e.g.: universal apps,
 mobile rendering, http, websockets, caching, etc. It's a front end framework, not a
 platform.
 
+### 4. Ergonomic
+
+The framework should aid in developing correct programs, and it should be enjoyable.
+APIs, features, and abstractions that are deemed to hinder productivity while using
+the framework will be changed or removed.
+
 ## Installation
 
 ```bash

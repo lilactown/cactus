@@ -41,7 +41,7 @@ export function connectedView<P>(View: Component, events: Events) {
 	};
 }
 
-export function createAppComponent<P>(
+export function appAsComponent<P>(
 	main: Core.Main, drivers: Core.Drivers, propsMap?: PropsMap, displayName?: string
 ): any {
 	return class App extends React.Component<P, any> implements App {

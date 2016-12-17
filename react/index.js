@@ -33,7 +33,7 @@ function connectedView(View, events) {
     };
 }
 exports.connectedView = connectedView;
-function createAppComponent(main, drivers, propsMap, displayName) {
+function appAsComponent(main, drivers, propsMap, displayName) {
     return _a = class App extends React.Component {
             componentWillMount() {
                 const extDrivers = __assign({}, drivers, { state: state_1.makeReactStateDriver(({ View, state }) => {
@@ -64,4 +64,4 @@ function createAppComponent(main, drivers, propsMap, displayName) {
         _a;
     var _a;
 }
-exports.createAppComponent = createAppComponent;
+exports.appAsComponent = appAsComponent;

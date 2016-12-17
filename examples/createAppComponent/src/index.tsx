@@ -40,7 +40,7 @@ function main(sources) {
 }
 
 // create our Cactus app as a good ol'-fashioned  React component
-const Counter = Cactus.createAppComponent(main, {
+const Counter = Cactus.appAsComponent(main, {
     events: Cactus.makeEventDriver(),
 });
 

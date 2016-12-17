@@ -4,6 +4,7 @@ import 'rxjs/add/observable/merge';
 import * as React from 'react';
 import * as Core from '../core';
 import { Events, EventDefinition } from '../events';
+export { ComponentEvent } from 'observe-component/common/ComponentEvent';
 export declare type Component = React.ComponentClass<any> | React.StatelessComponent<any> | string;
 export interface ViewDelta<P> {
     View: Component;

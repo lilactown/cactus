@@ -6,6 +6,8 @@ import * as Core from '../core';
 import { makeReactStateDriver } from '../drivers/state';
 import { Events, EventDefinition } from '../events';
 
+export { ComponentEvent } from 'observe-component/common/ComponentEvent';
+
 export type Component =
     React.ComponentClass<any> |
     React.StatelessComponent<any> |

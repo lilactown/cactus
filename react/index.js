@@ -13,6 +13,8 @@ const React = require("react");
 const lodash_1 = require("lodash");
 const Core = require("../core");
 const state_1 = require("../drivers/state");
+var ComponentEvent_1 = require("observe-component/common/ComponentEvent");
+exports.ComponentEvent = ComponentEvent_1.ComponentEvent;
 ;
 function mergeEvents(events) {
     const eventDefs = lodash_1.map(events, (event$, key) => {

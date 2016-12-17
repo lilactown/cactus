@@ -29,7 +29,8 @@ function main(sources) {
 
     // instead of defining a stream of deltas, we instead define
     // a stream of reducer functions which the `count$` model
-    // definition will run on the latest state
+    // definition will run on the latest state. we call this
+    // combination of action and reducer an "intent"
     const inc$ = actions.select('incButton')
         .map(() => (count) => count + 1);
     const dec$ = actions.select('decButton')
@@ -42,8 +43,7 @@ function main(sources) {
     const count$ = Observable
         .merge(inc$, dec$, incOdd$)
         // our scan function now applies each reducer function to the state
-        // as they are received from our streams of actions
-        // the combination of action and reducer is an "intent"
+        // as they are received from our streams of intents
         .scan((count, reducer) => reducer(count), 0)
         .startWith(0)
         .map((count) => ({ count }));

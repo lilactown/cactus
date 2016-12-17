@@ -39,10 +39,16 @@ function main(sources) {
     };
 }
 
-// create our Cactus app as a good ol'-fashioned  React component
-const Counter = Cactus.appAsComponent(main, {
+const drivers = {
     events: Cactus.makeEventDriver(),
+};
+
+// create our Cactus app as a good ol'-fashioned  React component
+const Counter = Cactus.appAsComponent(main, drivers, {
+    // we can also define a "props map" that will map our state
+    // to properties that we can use as a public API
+    onChange: ({ count }) => count,
 });
 
 // render it as you do
-render(<Counter />, document.getElementById('app'));
+render(<Counter onChange={(count) => console.log(count)} />, document.getElementById('app'));

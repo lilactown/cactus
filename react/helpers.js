@@ -8,7 +8,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 const React = require("react");
-function withProps(props) {
-    return (Component) => React.createElement(Component, __assign({}, props));
+function withProps(definedProps) {
+    return (Component) => (props) => React.createElement(Component, __assign({}, definedProps, props));
 }
 exports.withProps = withProps;

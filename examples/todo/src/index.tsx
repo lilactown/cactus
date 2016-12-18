@@ -6,37 +6,53 @@ import { view, Events } from './view';
 
 function main(sources) {
     const actions = Cactus.selectable<Events>(sources.events);
-    const newTodoIntent$ = actions.select('addTodo')
+    const addTodoIntent$ = actions.select('addTodo')
+        .filter(({ type }) => type === "onKeyPress")
         .filter(({ value }) => value.key === "Enter")
         .map(({ value }) => value.target.value)
-        .map((name) => ({ todos }) => {
+        .map((name) => ({ todos, newTodoName }) => {
             const newTodos = todos.slice();
             newTodos.push({
                 name,
                 completed: false,
             });
             return {
-                todos: newTodos
+                todos: newTodos,
+                newTodoName: '',
+            };
+        });
+
+    const removeTodoIntent$ = actions.select('removeButton')
+        .map(({ props: { id } }) => ({ todos, newTodoName }) => {
+            const newTodos = todos.slice();
+            newTodos.splice(id, 1);
+            return {
+                todos: newTodos,
+                newTodoName,
             };
         });
 
     const toggleTodoIntent$ = actions.select('itemCheckboxes')
-        .map(({ value, props }) => ({ todos }) => {
+        .map(({ value: { target: { checked } }, props: { id } }) => ({ todos, newTodoName }) => {
             const newTodos = todos.slice();
-            const { id } = props;
-            const { checked } = value.target;
-
             newTodos[id].completed = checked;
-
             return {
                 todos: newTodos,
+                newTodoName,
             };
         });
 
+    const newTodoNameIntent$ = actions.select('addTodo')
+        .filter(({ type }) => type === "onChange")
+        .map(({ value: { target: { value } } }) => ({ todos, newTodoName }) => ({
+            todos,
+            newTodoName: value,
+        }));
+
     const model$ = 
-        Observable.merge(newTodoIntent$, toggleTodoIntent$,)
-        .scan((state, reducer) => reducer(state), { todos: [] })
-        .startWith({ todos: [] });
+        Observable.merge(addTodoIntent$, toggleTodoIntent$, removeTodoIntent$, newTodoNameIntent$)
+        .scan((state, reducer) => reducer(state), { todos: [], newTodoName: '' })
+        .startWith({ todos: [], newTodoName: '' });
 
     const { view$, events$ } = view(model$);
 

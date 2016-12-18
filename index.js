@@ -6,3 +6,4 @@ __export(require("./core"));
 __export(require("./drivers"));
 __export(require("./events"));
 __export(require("./react"));
+__export(require("./react/helpers"));

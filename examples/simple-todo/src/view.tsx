@@ -46,7 +46,6 @@ type TodoProps = {
 };
 
 function TodoView({ todos, newTodoName }: TodoProps) {
-    console.log(newTodoName);
     return (
         <div style={styles.todosList}>
             <h1>To do list</h1>

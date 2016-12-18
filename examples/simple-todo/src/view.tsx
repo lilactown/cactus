@@ -48,11 +48,12 @@ type TodoProps = {
 function TodoView({ todos, newTodoName }: TodoProps) {
     return (
         <div style={styles.todosList}>
-            <h1>To do list</h1>
-            {todos.map((todo, i) => 
-                <Item {...todo} id={i} key={i} />
-            )}
-            <AddTodo value={newTodoName} style={styles.addTodo} type="text" />
+            <h1 style={styles.header}>To Do List</h1>
+            {todos.map((todo, i) => <Item {...todo} id={i} key={i} /> )}
+            To do: <AddTodo value={newTodoName} style={styles.addTodo} type="text" />
+            <div>
+                Type a to do and press enter to add a new item
+            </div>
         </div>
     );
 }
@@ -78,10 +79,13 @@ const styles = {
     addTodo: {
         fontSize: 14,
         margin: 5,
-        marginLeft: 26,
+    },
+    header: {
     },
     todosList: {
         width: "500px",
+        margin: "auto",
+        textAlign: 'center',
     },
 };
 

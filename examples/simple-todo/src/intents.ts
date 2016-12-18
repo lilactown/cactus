@@ -1,11 +1,7 @@
-import * as Cactus from '../../../';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
-import * as React from 'react';
-import { view, Events } from './view';
 
-function main(sources) {
-    const actions = Cactus.selectable<Events>(sources.events);
+export function intents(actions): Observable<(state: any) => any> {
     const addTodoIntent$ = actions.select('addTodo')
         .filter(({ type }) => type === "onKeyPress")
         .filter(({ value }) => value.key === "Enter")
@@ -49,23 +45,10 @@ function main(sources) {
             newTodoName: value,
         }));
 
-    const model$ = 
-        Observable.merge(addTodoIntent$, toggleTodoIntent$, removeTodoIntent$, newTodoNameIntent$)
-        .scan((state, reducer) => reducer(state), { todos: [], newTodoName: '' })
-        .startWith({ todos: [], newTodoName: '' });
-
-    const { view$, events$ } = view(model$);
-
-    const sinks = {
-        render: view$,
-        events: events$,
-    };
-    return sinks;
+    return Observable.merge(
+        addTodoIntent$,
+        toggleTodoIntent$,
+        removeTodoIntent$, 
+        newTodoNameIntent$
+    );
 }
-
-const drivers = {
-    render: Cactus.makeReactDOMDriver(document.getElementById('app')),
-    events: Cactus.makeEventDriver(),
-};
-
-Cactus.run(main, drivers);

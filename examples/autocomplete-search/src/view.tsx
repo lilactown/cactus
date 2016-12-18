@@ -106,7 +106,7 @@ export type ViewEvents = {
 	resultsList: Rx.Observable<any>,
 }
 
-export const events: ViewEvents = {
+const events: ViewEvents = {
 	input: fromComponent(SearchInput),
 	resultsList: fromComponent(Result),
 };

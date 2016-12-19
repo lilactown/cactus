@@ -10,11 +10,12 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.43",
+    "@types/ramda": "^0.0.2",
     "@types/react": "^0.14.55",
     "@types/react-dom": "^0.14.19",
     "@types/whatwg-fetch": "^0.0.33",
-    "lodash": "^4.17.2",
     "observe-component": "^3.3.1",
+    "ramda": "^0.22.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "rxjs": "^5.0.1",

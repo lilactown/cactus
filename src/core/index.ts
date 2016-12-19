@@ -1,8 +1,10 @@
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { Subscription } from 'rxjs/Subscription';
 import * as React from 'react';
-import { mapValues, map, forEach } from 'lodash';
+import * as R from 'ramda';
+import { mapObjIndexed, map, forEach } from 'ramda';
 
 export type DisposeFn = () => void;
 export type Source<T> = Observable<T>;
@@ -32,31 +34,38 @@ export type Main = (sources: Sources) => Sinks;
 export type RunFn = () => DisposeFn;
 
 function createProxies(drivers: Drivers): SinkProxies {
-	return mapValues(drivers, () => {
+	return mapObjIndexed(() => {
 		return new Subject();
-	});
+	}, drivers);
 }
 
 function executeDrivers(drivers: Drivers, sinkProxies: SinkProxies) {
-	return mapValues(drivers, (driver) =>
-		driver(sinkProxies)
-	);
+	return mapObjIndexed((driver: Driver) => driver(sinkProxies), drivers);
 }
 
-function getSources<S extends Sources>(definitions: _.Dictionary<SourceDefinition>): S {
-	return <S>mapValues(definitions, (definition) => definition.source);
+function getSources<S extends Sources>(definitions: { [I: string]: SourceDefinition }): S {
+	return <S>mapObjIndexed((definition: SourceDefinition) => definition.source, definitions);
 }
 
-function createSinkDisposal(definitions: _.Dictionary<SourceDefinition>) {
-	const disposes = map(definitions, (definition) => definition.dispose);
-	return () => disposes.forEach((dispose) => dispose());
+function createSinkDisposal(definitions: any): DisposeFn {
+	const disposes = R.compose(
+		R.values,
+		map((definition: SourceDefinition) => definition.dispose)
+	)(definitions);
+	return () => disposes.forEach((dispose: DisposeFn) => dispose());
 }
 
 function link(sinks: Sinks, sinkProxies: SinkProxies): DisposeFn {
-	const subscriptions = map(sinks, (sink, name: string) => {
-		const proxy = sinkProxies[name];
-		return sink.subscribe(proxy);
-	});
+	const toSubscription =
+		mapObjIndexed((sink: Observable<any>, name: string) => {
+			const proxy = sinkProxies[name];
+			return sink.subscribe(proxy);
+		});
+	// const disposal = forEach((subscription: Subscription) => subscription.unsubscribe())
+	const subscriptions = R.compose<Sinks, { [I: string]: Subscription}, Subscription[]>(
+		R.values,
+		toSubscription
+	)(sinks);
 
 	return () => {
 		subscriptions.forEach((subscription) => subscription.unsubscribe());

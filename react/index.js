@@ -10,19 +10,18 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 const Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/merge");
 const React = require("react");
-const lodash_1 = require("lodash");
+const R = require("ramda");
 const Core = require("../core");
 const state_1 = require("../drivers/state");
 var ComponentEvent_1 = require("observe-component/common/ComponentEvent");
 exports.ComponentEvent = ComponentEvent_1.ComponentEvent;
 ;
 function mergeEvents(events) {
-    const eventDefs = lodash_1.map(events, (event$, key) => {
-        return event$.map((ev) => ({
-            category: key,
-            event: ev,
-        }));
-    });
+    const mapEventDefs = R.mapObjIndexed((event$, key) => event$.map((ev) => ({
+        category: key,
+        event: ev,
+    })));
+    const eventDefs = R.compose(R.values, mapEventDefs)(events);
     const stream = Observable_1.Observable.merge(...eventDefs);
     return stream;
 }
@@ -44,11 +43,11 @@ function appAsComponent(main, drivers, propsMap, displayName) {
                             this.component = View;
                         }
                         if (propsMap) {
-                            lodash_1.forEach(propsMap, (v, k) => {
+                            R.mapObjIndexed((v, k) => {
                                 if (this.props[k]) {
                                     this.props[k](v(oldState, state));
                                 }
-                            });
+                            }, propsMap);
                         }
                         this.setState(state);
                     }) });

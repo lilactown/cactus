@@ -1,7 +1,7 @@
 import * as Rx from 'rxjs/Rx';
 import * as Cactus from '../../../';
 import * as React from 'react';
-import { flowRight as compose } from 'lodash';
+import { compose } from 'ramda';
 
 export type Events = {
     itemCheckboxes: Rx.Observable<Cactus.ComponentEvent>,

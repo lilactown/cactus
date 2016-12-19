@@ -1,32 +1,35 @@
 "use strict";
 const Subject_1 = require("rxjs/Subject");
 require("rxjs/add/operator/map");
-const lodash_1 = require("lodash");
+const R = require("ramda");
+const ramda_1 = require("ramda");
 ;
 ;
 ;
 ;
 ;
 function createProxies(drivers) {
-    return lodash_1.mapValues(drivers, () => {
+    return ramda_1.mapObjIndexed(() => {
         return new Subject_1.Subject();
-    });
+    }, drivers);
 }
 function executeDrivers(drivers, sinkProxies) {
-    return lodash_1.mapValues(drivers, (driver) => driver(sinkProxies));
+    return ramda_1.mapObjIndexed((driver) => driver(sinkProxies), drivers);
 }
 function getSources(definitions) {
-    return lodash_1.mapValues(definitions, (definition) => definition.source);
+    return ramda_1.mapObjIndexed((definition) => definition.source, definitions);
 }
 function createSinkDisposal(definitions) {
-    const disposes = lodash_1.map(definitions, (definition) => definition.dispose);
+    const disposes = R.compose(R.values, ramda_1.map((definition) => definition.dispose))(definitions);
     return () => disposes.forEach((dispose) => dispose());
 }
 function link(sinks, sinkProxies) {
-    const subscriptions = lodash_1.map(sinks, (sink, name) => {
+    const toSubscription = ramda_1.mapObjIndexed((sink, name) => {
         const proxy = sinkProxies[name];
         return sink.subscribe(proxy);
     });
+    // const disposal = forEach((subscription: Subscription) => subscription.unsubscribe())
+    const subscriptions = R.compose(R.values, toSubscription)(sinks);
     return () => {
         subscriptions.forEach((subscription) => subscription.unsubscribe());
     };

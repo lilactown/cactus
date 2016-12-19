@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import * as React from 'react';
-import { forEach, map } from 'lodash';
+import * as R from 'ramda';
 import * as Core from '../core';
 import { makeReactStateDriver } from '../drivers/state';
 import { Events, EventDefinition } from '../events';
@@ -24,12 +24,17 @@ export interface PropsMap {
 };
 
 function mergeEvents(events: Events): Observable<EventDefinition> {
-	const eventDefs = map(events, (event$, key: string) => {
-		return event$.map((ev): EventDefinition => ({
-			category: key,
-			event: ev,
-		}));
-	});
+	const mapEventDefs =
+		R.mapObjIndexed((event$: Observable<any>, key: string) =>
+			event$.map((ev): EventDefinition => ({
+				category: key,
+				event: ev,
+			}))
+		);
+	const eventDefs: Observable<EventDefinition>[] = R.compose(
+		R.values,
+		mapEventDefs
+	)(events);
 	const stream = Observable.merge(...eventDefs);
 	return stream;
 }
@@ -59,11 +64,11 @@ export function appAsComponent<P>(
                         this.component = View;
                     }
 					if (propsMap) {
-						forEach(propsMap, (v, k: string) => {
+						R.mapObjIndexed((v: (n: any, v: any) => void, k: string) => {
 							if (this.props[k]) {
 								this.props[k](v(oldState, state));
 							}
-						});
+						}, propsMap);
 					}
                     this.setState(state);
                 }),

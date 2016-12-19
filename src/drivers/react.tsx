@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'lodash';
 import { Component } from '../react';
 import { ViewDelta } from '../react';
 import {

@@ -6,7 +6,7 @@ import * as Events from '../../../drivers/events';
 import { selectable } from '../../../events';
 
 // app
-import { view, ViewEvents } from './view';
+import { createSearchView, ViewEvents } from './view';
 import { model } from './model';
 import { intents } from './intent';
 
@@ -25,6 +25,7 @@ function generateRequest(term$: Rx.Observable<string>) {
 function main(sources: Sources): Sinks {
 	const events = selectable(sources.events);
 	const responses$ = sources.fetch;
+	const view = createSearchView();
 	const actions = intents(responses$, events);
 	const { view$, events$ } = view(model(actions));
 	return {

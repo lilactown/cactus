@@ -3,29 +3,30 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import * as React from 'react';
 
-// define buttons that we can receive 'onClick' events on
-const IncButton = Cactus.observeComponent('onClick')('button');
-const DecButton = Cactus.observeComponent('onClick')('button');
-
-// define our react component, serving as our view
-function CounterView({ count }) {
-    return (
-        <div>
-            <div>Counter: { count }</div>
-            <IncButton>+</IncButton>
-            <DecButton>-</DecButton>
-        </div>
-    );
-}
-
-// define our view function which will observe our state
-const view = Cactus.connectedView(CounterView, {
-    incButton: Cactus.fromComponent(IncButton),
-    decButton: Cactus.fromComponent(DecButton),
-});
-
 // main takes in "sources" (external input) and returns "sinks" ()
 function main(sources) {
+    // define buttons that we can receive 'onClick' events on
+    const IncButton = Cactus.observeComponent('onClick')('button');
+    const DecButton = Cactus.observeComponent('onClick')('button');
+
+    // define our react component, serving as our view
+    function CounterView({ count }) {
+        return (
+            <div>
+                <div>Counter: { count }</div>
+                <IncButton>+</IncButton>
+                <DecButton>-</DecButton>
+            </div>
+        );
+    }
+
+    // define our view function which will observe our state
+    const view = Cactus.connectedView(CounterView, {
+        incButton: Cactus.fromComponent(IncButton),
+        decButton: Cactus.fromComponent(DecButton),
+    });
+
+
     const actions = Cactus.selectable<any>(sources.events);
 
     // define increment actions

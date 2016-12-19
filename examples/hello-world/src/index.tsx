@@ -3,18 +3,18 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import * as React from 'react';
 
-// define our view (a React component)
-function HelloView() {
-    return (
-        <div>
-            <div>Hello, world!</div>
-        </div>
-    );
-}
-
 // `main` is our program - it will handle any inputs, outputs,
 // state changes, events, etc. that an app might have
 function main() {
+    // define our view (a React component)
+    function HelloView() {
+        return (
+            <div>
+                <div>Hello, world!</div>
+            </div>
+        );
+    }
+
     // `view$` is a stream of "view states" - a component and it's current state
     const view$ = Observable.of({ View: HelloView, state: {} });
 

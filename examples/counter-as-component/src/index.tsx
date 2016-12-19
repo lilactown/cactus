@@ -47,7 +47,7 @@ const drivers = {
 const Counter = Cactus.appAsComponent(main, drivers, {
     // we can also define a "props map" that will map our state
     // to properties that we can use as a public API
-    onChange: ({ count }) => count,
+    onChange: (oldState, { count }) => count,
 });
 
 // render it as you do

@@ -11,7 +11,7 @@ export interface ViewDelta<P> {
     state: P;
 }
 export interface PropsMap {
-    [K: string]: (state: any) => any;
+    [K: string]: (oldState: any, state: any) => any;
 }
 export declare function connectedView<P>(View: Component, events: Events): (model: Observable<P>) => {
     view$: Observable<ViewDelta<P>>;

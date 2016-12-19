@@ -20,7 +20,7 @@ export interface ViewDelta<P> {
 }
 
 export interface PropsMap {
-	[K: string]: (state: any) => any
+	[K: string]: (oldState: any, state: any) => any
 };
 
 function mergeEvents(events: Events): Observable<EventDefinition> {
@@ -54,17 +54,18 @@ export function appAsComponent<P>(
             const extDrivers = {
                 ...drivers,
                 state: makeReactStateDriver(({ View, state }) => {
-                    this.setState(state);
+					const oldState = this.state;
                     if (!this.component) {
                         this.component = View;
                     }
 					if (propsMap) {
 						forEach(propsMap, (v, k: string) => {
 							if (this.props[k]) {
-								this.props[k](v(state));
+								this.props[k](v(oldState, state));
 							}
 						});
 					}
+                    this.setState(state);
                 }),
             }
 			const { run } = Core.App<Core.Sources, Core.Drivers>(main, extDrivers);

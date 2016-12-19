@@ -39,17 +39,18 @@ function appAsComponent(main, drivers, propsMap, displayName) {
     return _a = class App extends React.Component {
             componentWillMount() {
                 const extDrivers = __assign({}, drivers, { state: state_1.makeReactStateDriver(({ View, state }) => {
-                        this.setState(state);
+                        const oldState = this.state;
                         if (!this.component) {
                             this.component = View;
                         }
                         if (propsMap) {
                             lodash_1.forEach(propsMap, (v, k) => {
                                 if (this.props[k]) {
-                                    this.props[k](v(state));
+                                    this.props[k](v(oldState, state));
                                 }
                             });
                         }
+                        this.setState(state);
                     }) });
                 const { run } = Core.App(main, extDrivers);
                 this.dispose = run();

@@ -3,28 +3,27 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import * as React from 'react';
 
-const IncButton = Cactus.observeComponent('onClick')('button');
-const DecButton = Cactus.observeComponent('onClick')('button');
-const IncOddBtn = Cactus.observeComponent('onClick')('button');
-
-function CounterView({ count }) {
-    return (
-        <div>
-            <div>Counter: { count }</div>
-            <IncButton>+</IncButton>
-            <DecButton>-</DecButton>
-            <IncOddBtn>Increment if odd</IncOddBtn>
-        </div>
-    );
-}
-
-const view = Cactus.connectedView(CounterView, {
-    incButton: Cactus.fromComponent(IncButton),
-    decButton: Cactus.fromComponent(DecButton),
-    incOddBtn: Cactus.fromComponent(IncOddBtn),
-});
-
 function main(sources) {
+    const IncButton = Cactus.observeComponent('onClick')('button');
+    const DecButton = Cactus.observeComponent('onClick')('button');
+    const IncOddBtn = Cactus.observeComponent('onClick')('button');
+
+    function CounterView({ count }) {
+        return (
+            <div>
+                <div>Counter: { count }</div>
+                <IncButton>+</IncButton>
+                <DecButton>-</DecButton>
+                <IncOddBtn>Increment if odd</IncOddBtn>
+            </div>
+        );
+    }
+
+    const view = Cactus.connectedView(CounterView, {
+        incButton: Cactus.fromComponent(IncButton),
+        decButton: Cactus.fromComponent(DecButton),
+        incOddBtn: Cactus.fromComponent(IncOddBtn),
+    });
     const actions = Cactus.selectable<any>(sources.events);
 
     const inc$ = actions.select('incButton')

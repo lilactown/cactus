@@ -5,36 +5,38 @@ import * as React from 'react';
 
 // our child as component
 import { Counter } from './counter';
-const CounterA = Cactus.observeComponent('onChange')(Counter());
-const CounterB = Cactus.observeComponent('onChange')(Counter());
-
-function View({ total }) {
-    return (
-        <div>
-            <CounterA />
-            <CounterB />
-            Total: { total }
-        </div>
-    )
-}
-
-const view = Cactus.connectedView(View, {
-    counterA: Cactus.fromComponent(CounterA),
-    counterB: Cactus.fromComponent(CounterB),
-});
 
 function main(sources) {
+    const CounterA = Cactus.observeComponent('onChange')(Counter);
+    const CounterB = Cactus.observeComponent('onChange')(Counter);
+
+    function View({ total }) {
+        return (
+            <div>
+                <CounterA />
+                <CounterB />
+                Total: { total }
+            </div>
+        )
+    }
+
+    const view = Cactus.connectedView(View, {
+        counterA: Cactus.fromComponent(CounterA),
+        counterB: Cactus.fromComponent(CounterB),
+    });
+
     const actions = Cactus.selectable<any>(sources.events);
     const counterA$ = actions.select('counterA')
-        .do((k) => console.log(k))
-        .map(({ value }) => (total) => total + value);
+        .map(({ value }) => (counts) =>
+            ({ ...counts, counterA: value }));
     const counterB$ = actions.select('counterB')
-        .map(({ value }) => (total) => total + value);
+        .map(({ value }) => (counts) =>
+            ({ ...counts, counterB: value}));
 
     const model$ = Observable.merge(counterA$, counterB$)
-        .scan((total, reducer) => reducer(total), 0)
-        .startWith(0)
-        .map((total) => ({ total }));
+        .scan((counts, reducer) => reducer(counts), { counterA: 0, counterB: 0 })
+        .startWith({ counterA: 0, counterB: 0 })
+        .map(({ counterA, counterB }) => ({ total: counterA + counterB }))
 
     const { view$, events$ } = view(model$);
 

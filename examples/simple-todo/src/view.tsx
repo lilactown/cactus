@@ -9,7 +9,7 @@ export type Events = {
     removeButton: Rx.Observable<Cactus.ComponentEvent>,
 };
 
-export function createTodoView() {
+export function view(model$) {
     const styles = {
         itemCheckbox: {
             float: 'left',
@@ -111,12 +111,13 @@ export function createTodoView() {
         );
     }
 
-    return Cactus.connectedView<TodoProps>(
+    return Cactus.connectView<TodoProps>(
         TodoView,
         {
             itemCheckboxes: Cactus.fromComponent(ItemCheckbox),
             addTodo: Cactus.fromComponent(AddTodo),
             removeButton: Cactus.fromComponent(RemoveButton),
-        }
+        },
+        model$
     );
 }

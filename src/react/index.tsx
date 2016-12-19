@@ -39,12 +39,10 @@ function mergeEvents(events: Events): Observable<EventDefinition> {
 	return stream;
 }
 
-export function connectedView<P>(View: Component, events: Events) {
-	return function connectViewTo(model: Observable<P>) {
-		return {
-			view$: model.map((state: P): ViewDelta<P> => ({ View, state })),
-			events$: mergeEvents(events),
-		};
+export function connectView<P>(View: Component, events: Events, model$: Observable<P>) {
+	return {
+		view$: model$.map((state: P): ViewDelta<P> => ({ View, state })),
+		events$: mergeEvents(events),
 	};
 }
 

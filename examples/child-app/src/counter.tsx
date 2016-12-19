@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import * as React from 'react';
 
-function main(sources) {
+function view(model$) {
     const IncButton = Cactus.observeComponent('onClick')('button');
     const DecButton = Cactus.observeComponent('onClick')('button');
     const IncOddBtn = Cactus.observeComponent('onClick')('button');
@@ -19,11 +19,14 @@ function main(sources) {
         );
     }
 
-    const view = Cactus.connectedView(CounterView, {
+    return Cactus.connectView(CounterView, {
         incButton: Cactus.fromComponent(IncButton),
         decButton: Cactus.fromComponent(DecButton),
         incOddBtn: Cactus.fromComponent(IncOddBtn),
-    });
+    }, model$);
+}
+
+function main(sources) {
     const actions = Cactus.selectable<any>(sources.events);
 
     const inc$ = actions.select('incButton')

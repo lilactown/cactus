@@ -1,7 +1,8 @@
 import * as Rx from 'rxjs/Rx';
 import * as React from 'react';
 import { observeComponent, fromComponent } from '../../../events';
-import { connectedView } from '../../../react';
+import { connectView } from '../../../react';
+import { Model } from './model'
 
 export interface ViewProps {
 	value: string,
@@ -21,7 +22,7 @@ interface ResultsListProps {
 	highlighted: number,
 };
 
-export function createSearchView() {
+export function view(model$: Rx.Observable<Model>) {
 	const SearchInput = observeComponent<React.HTMLProps<any>>(
 		'onChange',
 		'onBlur',
@@ -113,5 +114,5 @@ export function createSearchView() {
 		resultsList: fromComponent(Result),
 	};
 
-	return connectedView<ViewProps>(View, events);
+	return connectView<ViewProps>(View, events, model$);
 }

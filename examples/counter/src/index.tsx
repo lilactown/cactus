@@ -3,9 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import * as React from 'react';
 
-// main takes in "sources" (external input) and returns "sinks" ()
-function main(sources) {
-    // define buttons that we can receive 'onClick' events on
+// define our view function which will observe our state
+function view(model$) {
+        // define buttons that we can receive 'onClick' events on
     const IncButton = Cactus.observeComponent('onClick')('button');
     const DecButton = Cactus.observeComponent('onClick')('button');
 
@@ -20,13 +20,14 @@ function main(sources) {
         );
     }
 
-    // define our view function which will observe our state
-    const view = Cactus.connectedView(CounterView, {
+    return Cactus.connectView(CounterView, {
         incButton: Cactus.fromComponent(IncButton),
         decButton: Cactus.fromComponent(DecButton),
-    });
+    }, model$);
+}
 
-
+// main takes in "sources" (external input) and returns "sinks" ()
+function main(sources) {
     const actions = Cactus.selectable<any>(sources.events);
 
     // define increment actions

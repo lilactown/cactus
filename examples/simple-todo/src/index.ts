@@ -1,11 +1,10 @@
 import * as Cactus from '../../../';
 import * as React from 'react';
-import { createTodoView, Events } from './view';
+import { view, Events } from './view';
 import { intents } from './intents';
 
 function main(sources) {
     const actions = Cactus.selectable<Events>(sources.events);
-    const view = createTodoView();
     const intents$ = intents(actions);
     const model$ = intents$
         .scan((state, reducer) => reducer(state), { todos: [], newTodoName: '' })

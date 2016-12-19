@@ -25,15 +25,13 @@ function mergeEvents(events) {
     const stream = Observable_1.Observable.merge(...eventDefs);
     return stream;
 }
-function connectedView(View, events) {
-    return function connectViewTo(model) {
-        return {
-            view$: model.map((state) => ({ View, state })),
-            events$: mergeEvents(events),
-        };
+function connectView(View, events, model$) {
+    return {
+        view$: model$.map((state) => ({ View, state })),
+        events$: mergeEvents(events),
     };
 }
-exports.connectedView = connectedView;
+exports.connectView = connectView;
 function appAsComponent(main, drivers, propsMap, displayName) {
     return _a = class App extends React.Component {
             componentWillMount() {

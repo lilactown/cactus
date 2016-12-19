@@ -4,11 +4,11 @@ import 'rxjs/add/observable/merge';
 import * as React from 'react';
 import { render } from 'react-dom';
 
-function main(sources) {
+function view(model$) {
     const IncButton = Cactus.observeComponent('onClick')('button');
     const DecButton = Cactus.observeComponent('onClick')('button');
 
-    function View({ count }) {
+    function CounterView({ count }) {
         return (
             <div>
                 <div>Counter: { count }</div>
@@ -18,25 +18,31 @@ function main(sources) {
         );
     }
 
-    const view = Cactus.connectedView(View, {
+    return Cactus.connectView(CounterView, {
         incButton: Cactus.fromComponent(IncButton),
         decButton: Cactus.fromComponent(DecButton),
-    });
+    }, model$);
+}
 
+function main(sources) {
     const actions = Cactus.selectable<any>(sources.events);
-    const add$ = actions.select('incButton').map(() => 1);
+
+    const inc$ = actions.select('incButton').map(() => 1);
     const dec$ = actions.select('decButton').map(() => -1);
+    
     const count$ = Observable
-        .merge(add$, dec$)
+        .merge(inc$, dec$)
         .startWith(0)
-        .scan((count, delta) => count + delta)
+        .scan((total, delta) => total + delta)
         .map((count) => ({ count }));
 
     const { view$, events$ } = view(count$);
-    return {
-        state: view$,
+    
+    const sinks = {
+        render: view$,
         events: events$,
     };
+    return sinks;
 }
 
 const drivers = {
@@ -51,4 +57,7 @@ const Counter = Cactus.appAsComponent(main, drivers, {
 });
 
 // render it as you do
-render(<Counter onChange={(count) => console.log(count)} />, document.getElementById('app'));
+render(
+    <Counter onChange={(count) => console.log(count)} />,
+    document.getElementById('app')
+);

@@ -6,7 +6,7 @@ import * as React from 'react';
 // our child as component
 import { Counter } from './counter';
 
-function main(sources) {
+function view(model$) {
     const CounterA = Cactus.observeComponent('onChange')(Counter);
     const CounterB = Cactus.observeComponent('onChange')(Counter);
 
@@ -20,11 +20,13 @@ function main(sources) {
         )
     }
 
-    const view = Cactus.connectedView(View, {
+    return Cactus.connectView(View, {
         counterA: Cactus.fromComponent(CounterA),
         counterB: Cactus.fromComponent(CounterB),
-    });
+    }, model$);
+}
 
+function main(sources) {
     const actions = Cactus.selectable<any>(sources.events);
     const counterA$ = actions.select('counterA')
         .map(({ value }) => (counts) =>

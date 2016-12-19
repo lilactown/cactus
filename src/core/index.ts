@@ -91,5 +91,5 @@ export function run<S extends Sources, D extends Drivers>(
 	drivers: D
 ) {
 	const { run } = App(main, drivers);
-	run();
+	return run();
 }

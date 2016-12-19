@@ -52,6 +52,6 @@ function App(main, drivers) {
 exports.App = App;
 function run(main, drivers) {
     const { run } = App(main, drivers);
-    run();
+    return run();
 }
 exports.run = run;

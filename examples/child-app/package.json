@@ -1,0 +1,21 @@
+{
+  "name": "reducer",
+  "version": "1.0.0",
+  "description": "An example project using cactus and React",
+  "main": "index.js",
+  "author": "Will Acton",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --content-base www/",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "awesome-typescript-loader": "^3.0.0-beta.17",
+    "react": "^15.4.1",
+    "source-map-loader": "^0.1.5",
+    "typescript": "^2.1.4",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}

@@ -3,7 +3,7 @@ import 'rxjs/add/observable/merge';
 import * as React from 'react';
 import * as R from 'ramda';
 import * as Core from '../core';
-import { makeReactStateDriver } from '../drivers/state';
+import { makeReactComponentDriver } from '../drivers/component';
 import { Events, EventDefinition } from '../events';
 
 export { ComponentEvent } from 'observe-component/common/ComponentEvent';
@@ -63,12 +63,8 @@ export function appAsComponent<P, S>(
 		component: React.ComponentClass<P> | React.StatelessComponent<any> | string;
         dispose: Core.DisposeFn;
 		componentWillMount() {
-            const extDrivers = {
-                ...drivers,
-                render: makeReactStateDriver(),
-            }
-			const newDrivers = injectContext(this, extDrivers);
-			const { run, sinks } = Core.App<Core.Sources, Core.Drivers>(main, newDrivers);
+			const boundDrivers = injectContext(this, drivers);
+			const { run, sinks } = Core.App<Core.Sources, Core.Drivers>(main, boundDrivers);
 			// propsMap && propsMap(sinks, this.props);
 			this.dispose = run();
 		}

@@ -12,7 +12,6 @@ require("rxjs/add/observable/merge");
 const React = require("react");
 const R = require("ramda");
 const Core = require("../core");
-const state_1 = require("../drivers/state");
 var ComponentEvent_1 = require("observe-component/common/ComponentEvent");
 exports.ComponentEvent = ComponentEvent_1.ComponentEvent;
 ;
@@ -43,9 +42,8 @@ function appAsComponent(main, drivers,
     displayName) {
     return _a = class App extends React.Component {
             componentWillMount() {
-                const extDrivers = __assign({}, drivers, { render: state_1.makeReactStateDriver() });
-                const newDrivers = injectContext(this, extDrivers);
-                const { run, sinks } = Core.App(main, newDrivers);
+                const boundDrivers = injectContext(this, drivers);
+                const { run, sinks } = Core.App(main, boundDrivers);
                 // propsMap && propsMap(sinks, this.props);
                 this.dispose = run();
             }

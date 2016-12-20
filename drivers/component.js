@@ -3,7 +3,7 @@
 ;
 ;
 ;
-function makeReactStateDriver() {
+function makeReactComponentDriver() {
     return function stateDriver(sinkProxies, key) {
         const proxy = sinkProxies[key];
         const source = proxy.map(({ View, state }) => {
@@ -21,4 +21,4 @@ function makeReactStateDriver() {
         };
     };
 }
-exports.makeReactStateDriver = makeReactStateDriver;
+exports.makeReactComponentDriver = makeReactComponentDriver;

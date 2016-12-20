@@ -33,7 +33,7 @@ export interface StateDriverDefinition extends Drivers {
 	state: StateDriver,
 };
 
-export function makeReactStateDriver(): StateDriver {
+export function makeReactComponentDriver(): StateDriver {
 	return function stateDriver(sinkProxies: StateSink, key: string) {
 		const proxy = sinkProxies[key];
 		const source = proxy.map(({ View, state }) => {

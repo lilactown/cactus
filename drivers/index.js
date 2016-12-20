@@ -5,5 +5,5 @@ function __export(m) {
 __export(require("./events"));
 __export(require("./fetch"));
 __export(require("./react"));
-__export(require("./state"));
+__export(require("./component"));
 __export(require("./props"));

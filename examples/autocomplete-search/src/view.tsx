@@ -1,6 +1,6 @@
 import * as Rx from 'rxjs/Rx';
 import * as React from 'react';
-import { observeComponent, fromComponent } from '../../../react/helpers';
+import { observe, from } from '../../../react/helpers';
 import { connectView } from '../../../react';
 import { Model } from './model'
 
@@ -23,7 +23,7 @@ interface ResultsListProps {
 };
 
 export function view(model$: Rx.Observable<Model>) {
-	const SearchInput = observeComponent<React.HTMLProps<any>>(
+	const SearchInput = observe<React.HTMLProps<any>>(
 		'onChange',
 		'onBlur',
 		'onKeyPress',
@@ -45,7 +45,7 @@ export function view(model$: Rx.Observable<Model>) {
 		);
 	}
 
-	const Result = observeComponent<any>(
+	const Result = observe<any>(
 			'onClick',
 			'onMouseEnter',
 			'onMouseLeave',
@@ -110,8 +110,8 @@ export function view(model$: Rx.Observable<Model>) {
 	};
 
 	const events: ViewEvents = {
-		input: fromComponent(SearchInput),
-		resultsList: fromComponent(Result),
+		input: from(SearchInput),
+		resultsList: from(Result),
 	};
 
 	return connectView<ViewProps>(View, events, model$);

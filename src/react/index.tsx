@@ -3,10 +3,7 @@ import 'rxjs/add/observable/merge';
 import * as React from 'react';
 import * as R from 'ramda';
 import * as Core from '../core';
-import { makeReactComponentDriver } from '../drivers/component';
 import { Events, EventDefinition } from '../events';
-
-export { ComponentEvent } from 'observe-component/common/ComponentEvent';
 
 export type Component =
     React.ComponentClass<any> |

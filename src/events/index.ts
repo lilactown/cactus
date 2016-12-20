@@ -1,8 +1,5 @@
 import { Observable } from 'rxjs/Observable';
 
-// re-export observe-component library
-export { observeComponent, fromComponent } from 'observe-component/rxjs';
-
 export type EventDefinition = {
 	category: string,
 	event: any,

@@ -3,7 +3,7 @@ import * as Cactus from '../../../core';
 import * as React from '../../../drivers/react';
 import * as Fetch from '../../../drivers/fetch';
 import * as Events from '../../../drivers/events';
-import { selectable } from '../../../events';
+import { selectable } from '../../../react/helpers';
 
 // app
 import { view, ViewEvents } from './view';
@@ -36,6 +36,6 @@ function main(sources: Sources): Sinks {
 
 Cactus.run<Sources, Drivers>(main, {
 	render: React.makeReactDOMDriver(document.getElementById('app')),
-	fetch: Fetch.makeJSONDriver(),
+	fetch: Fetch.makeFetchJSONDriver(),
 	events: Events.makeEventDriver(),
 });

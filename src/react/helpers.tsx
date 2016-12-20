@@ -5,6 +5,10 @@ import { Component, EventDefinition } from './';
 // re-export observe-component library
 export { ComponentEvent } from 'observe-component/common/ComponentEvent';
 export { observeComponent, fromComponent } from 'observe-component/rxjs';
+export {
+    observeComponent as observe,
+    fromComponent as from,
+} from 'observe-component/rxjs';
 
 export function withProps(definedProps: any) {
     return (Component: Component): React.StatelessComponent<any> => 

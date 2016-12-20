@@ -14,6 +14,9 @@ exports.ComponentEvent = ComponentEvent_1.ComponentEvent;
 var rxjs_1 = require("observe-component/rxjs");
 exports.observeComponent = rxjs_1.observeComponent;
 exports.fromComponent = rxjs_1.fromComponent;
+var rxjs_2 = require("observe-component/rxjs");
+exports.observe = rxjs_2.observeComponent;
+exports.from = rxjs_2.fromComponent;
 function withProps(definedProps) {
     return (Component) => (props) => React.createElement(Component, __assign({}, definedProps, props));
 }

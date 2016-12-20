@@ -1,6 +1,6 @@
 import * as Rx from 'rxjs/Rx';
 import { ComponentEvent } from 'observe-component/common/ComponentEvent';
-import { Selectable } from '../../../events';
+import { Selectable } from '../../../react/helpers';
 import { ViewEvents } from './view';
 export interface Intents {
 	searchRequest$: Rx.Observable<any>,

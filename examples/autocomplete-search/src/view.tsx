@@ -1,6 +1,6 @@
 import * as Rx from 'rxjs/Rx';
 import * as React from 'react';
-import { observeComponent, fromComponent } from '../../../events';
+import { observeComponent, fromComponent } from '../../../react/helpers';
 import { connectView } from '../../../react';
 import { Model } from './model'
 

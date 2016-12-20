@@ -8,7 +8,7 @@ import {
 	DisposeFn,
 	App,
 } from '../core';
-import { EventDefinition } from '../events';
+import { EventDefinition } from '../react';
 
 export interface EventSink extends Sinks {
     events: Observable<EventDefinition>

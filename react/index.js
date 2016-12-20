@@ -12,8 +12,7 @@ require("rxjs/add/observable/merge");
 const React = require("react");
 const R = require("ramda");
 const Core = require("../core");
-var ComponentEvent_1 = require("observe-component/common/ComponentEvent");
-exports.ComponentEvent = ComponentEvent_1.ComponentEvent;
+;
 ;
 function mergeEvents(events) {
     const mapEventDefs = R.mapObjIndexed((event$, key) => event$.map((ev) => ({

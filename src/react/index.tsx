@@ -3,7 +3,15 @@ import 'rxjs/add/observable/merge';
 import * as React from 'react';
 import * as R from 'ramda';
 import * as Core from '../core';
-import { Events, EventDefinition } from '../events';
+
+export type EventDefinition = {
+	category: string,
+	event: any,
+};
+
+export interface Events {
+	[K: string]: Observable<any>
+};
 
 export type Component =
     React.ComponentClass<any> |

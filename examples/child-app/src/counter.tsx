@@ -39,27 +39,24 @@ function main(sources) {
     const count$ = Observable
         .merge(inc$, dec$, incOdd$)
         .scan((count, reducer) => reducer(count), 0)
-        .startWith(0)
-        .map((count) => ({ count }));
+        .startWith(0);
+        
+    const model$ = count$.map((count) => ({ count }));
 
-    const { view$, events$ } = view(count$);
+    const { view$, events$ } = view(model$);
     
     const sinks = {
         render: view$,
         events: events$,
+        count: count$,
     };
     return sinks;
 }
 
 const drivers = {
-    // render: Cactus.makeReactDOMDriver(document.getElementById('app')),
+    render: Cactus.makeReactComponentDriver(),
     events: Cactus.makeEventDriver(),
+    count: Cactus.makeReactPropsDriver('onChange'),
 };
 
-export const Counter = Cactus.appAsComponent(
-    main,
-    drivers,
-    {
-        onChange: (oldState, { count }) => count,
-    },
-);
+export const Counter = Cactus.appAsComponent(main, drivers);

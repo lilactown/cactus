@@ -47,6 +47,7 @@ function main(sources) {
 }
 
 const drivers = {
+    render: Cactus.makeReactComponentDriver(),
     events: Cactus.makeEventDriver(),
     value: Cactus.makeReactPropsDriver('onChange'),
 };

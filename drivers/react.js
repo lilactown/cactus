@@ -14,8 +14,8 @@ const react_dom_1 = require("react-dom");
 ;
 ;
 function makeReactDOMDriver(DOMNode) {
-    return (sinkProxies) => {
-        const proxy = sinkProxies.render;
+    return (sinkProxies, key) => {
+        const proxy = sinkProxies[key];
         const source = proxy.map(({ View, state }) => {
             react_dom_1.render(React.createElement(View, __assign({}, state)), DOMNode);
         });

@@ -5,8 +5,8 @@
 ;
 ;
 function makeEventDriver() {
-    return (sinkProxies) => {
-        const proxy = sinkProxies.events;
+    return (sinkProxies, key) => {
+        const proxy = sinkProxies[key];
         const source = proxy;
         const subscription = source.subscribe();
         const dispose = () => subscription.unsubscribe();

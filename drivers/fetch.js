@@ -6,8 +6,8 @@ const Observable_1 = require("rxjs/Observable");
 ;
 ;
 function makeFetchDriver() {
-    return (sinkProxies) => {
-        const source = sinkProxies.fetch
+    return (sinkProxies, key) => {
+        const source = sinkProxies[key]
             .switchMap((params) => {
             return Observable_1.Observable.fromPromise(fetch((params.url)));
         });
@@ -20,9 +20,9 @@ function makeFetchDriver() {
     };
 }
 exports.makeFetchDriver = makeFetchDriver;
-function makeJSONDriver() {
-    return (sinkProxies) => {
-        const source = sinkProxies.fetch
+function makeFetchJSONDriver() {
+    return (sinkProxies, key) => {
+        const source = sinkProxies[key]
             .flatMap((params) => {
             return Observable_1.Observable.fromPromise(fetch(params.url, params.options));
         })
@@ -35,4 +35,4 @@ function makeJSONDriver() {
         };
     };
 }
-exports.makeJSONDriver = makeJSONDriver;
+exports.makeFetchJSONDriver = makeFetchJSONDriver;

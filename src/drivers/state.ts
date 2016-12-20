@@ -26,7 +26,7 @@ export interface StateSource {
 };
 
 export interface StateDriver extends Driver {
-	(sinks: StateSink): StateSourceDefinition;
+	(sinks: StateSink, key: string): StateSourceDefinition;
 };
 
 export interface StateDriverDefinition extends Drivers {
@@ -34,8 +34,8 @@ export interface StateDriverDefinition extends Drivers {
 };
 
 export function makeReactStateDriver(cb: (v: any) => void): StateDriver {
-	return (sinkProxies: StateSink) => {
-		const proxy = sinkProxies.state;
+	return (sinkProxies: StateSink, key: string) => {
+		const proxy = sinkProxies[key];
 		const source = proxy.map(({ View, state }) => {
 			cb({ View, state });
 		});

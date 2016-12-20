@@ -13,7 +13,7 @@ export interface FetchSource extends Sources {
     fetch: Observable<any>;
 }
 export interface FetchDriver extends Driver {
-    (sinks: FetchSink): FetchSourceDefinition;
+    (sinks: FetchSink, key: string): FetchSourceDefinition;
 }
 export interface FetchParams {
     url: string;
@@ -23,4 +23,4 @@ export interface FetchDriverDefinition extends Drivers {
     fetch: FetchDriver;
 }
 export declare function makeFetchDriver(): FetchDriver;
-export declare function makeJSONDriver(): FetchDriver;
+export declare function makeFetchJSONDriver(): FetchDriver;

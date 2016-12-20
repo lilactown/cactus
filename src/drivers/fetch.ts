@@ -16,7 +16,7 @@ export interface FetchSource extends Sources {
 }
 
 export interface FetchDriver extends Driver {
-    (sinks: FetchSink): FetchSourceDefinition,
+    (sinks: FetchSink, key: string): FetchSourceDefinition,
 };
 
 export interface FetchParams {
@@ -29,8 +29,8 @@ export interface FetchDriverDefinition extends Drivers {
 };
 
 export function makeFetchDriver(): FetchDriver {
-    return (sinkProxies: FetchSink) => {
-        const source = sinkProxies.fetch
+    return (sinkProxies: FetchSink, key: string) => {
+        const source = sinkProxies[key]
             .switchMap((params: FetchParams) => {
                 return Observable.fromPromise(fetch((params.url)))
             });
@@ -44,9 +44,9 @@ export function makeFetchDriver(): FetchDriver {
     };
 }
 
-export function makeJSONDriver(): FetchDriver {
-    return (sinkProxies: FetchSink) => {
-        const source = sinkProxies.fetch
+export function makeFetchJSONDriver(): FetchDriver {
+    return (sinkProxies: FetchSink, key: string) => {
+        const source = sinkProxies[key]
             .flatMap((params: FetchParams) => {
                 return Observable.fromPromise(fetch(params.url, params.options))
             })

@@ -12,7 +12,7 @@ export interface StateSource {
     state: Observable<void>;
 }
 export interface StateDriver extends Driver {
-    (sinks: StateSink): StateSourceDefinition;
+    (sinks: StateSink, key: string): StateSourceDefinition;
 }
 export interface StateDriverDefinition extends Drivers {
     state: StateDriver;

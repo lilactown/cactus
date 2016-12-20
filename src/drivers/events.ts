@@ -32,8 +32,8 @@ export interface EventDriverDefinition extends Drivers {
 };
 
 export function makeEventDriver() {
-	return (sinkProxies: EventSink) => {
-		const proxy = sinkProxies.events;
+	return (sinkProxies: EventSink, key: string) => {
+		const proxy = sinkProxies[key];
         const source = proxy;
 		const subscription = source.subscribe();
 		const dispose = () => subscription.unsubscribe();

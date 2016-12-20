@@ -14,7 +14,7 @@ function createProxies(drivers) {
     }, drivers);
 }
 function executeDrivers(drivers, sinkProxies) {
-    return ramda_1.mapObjIndexed((driver) => driver(sinkProxies), drivers);
+    return ramda_1.mapObjIndexed((driver, key) => driver(sinkProxies, key), drivers);
 }
 function getSources(definitions) {
     return ramda_1.mapObjIndexed((definition) => definition.source, definitions);

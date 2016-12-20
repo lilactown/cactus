@@ -58,7 +58,7 @@ export function appAsComponent<P>(
                 ...drivers,
                 state: makeReactStateDriver(({ View, state }) => {
 					const oldState = this.state;
-                    if (!this.component) {
+                    if (View !== this.component) {
                         this.component = View;
                     }
 					if (propsMap) {

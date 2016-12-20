@@ -17,7 +17,7 @@ export interface EventDriver extends Driver {
 export interface EventDriverDefinition extends Drivers {
     events: EventDriver;
 }
-export declare function makeEventDriver(): (sinkProxies: EventSink) => {
-    source: Observable<EventDefinition>;
+export declare function makeEventDriver(): (sinkProxies: EventSink, key: string) => {
+    source: Observable<any>;
     dispose: () => void;
 };

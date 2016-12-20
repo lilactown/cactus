@@ -28,7 +28,7 @@ export interface RenderSource {
 };
 
 export interface RenderDriver extends Driver {
-	(sinks: RenderSink): RenderSourceDefinition;
+	(sinks: RenderSink, key: string): RenderSourceDefinition;
 };
 
 export interface RenderDriverDefinition extends Drivers {
@@ -36,8 +36,8 @@ export interface RenderDriverDefinition extends Drivers {
 };
 
 export function makeReactDOMDriver(DOMNode: Element): RenderDriver {
-	return (sinkProxies: RenderSink) => {
-		const proxy = sinkProxies.render;
+	return (sinkProxies: RenderSink, key: string) => {
+		const proxy = sinkProxies[key];
 		const source = proxy.map(({ View, state }) => {
 			render(<View {...state} />, DOMNode);
 		});

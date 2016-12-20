@@ -4,8 +4,8 @@
 ;
 ;
 function makeReactStateDriver(cb) {
-    return (sinkProxies) => {
-        const proxy = sinkProxies.state;
+    return (sinkProxies, key) => {
+        const proxy = sinkProxies[key];
         const source = proxy.map(({ View, state }) => {
             cb({ View, state });
         });

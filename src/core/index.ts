@@ -17,7 +17,7 @@ export interface Sources {
 };
 
 export interface Driver {
-	(sinks: Sinks): SourceDefinition,
+	(sinks: Sinks, key: string): SourceDefinition,
 };
 export interface Drivers {
 	[K: string]: Driver,
@@ -40,7 +40,7 @@ function createProxies(drivers: Drivers): SinkProxies {
 }
 
 function executeDrivers(drivers: Drivers, sinkProxies: SinkProxies) {
-	return mapObjIndexed((driver: Driver) => driver(sinkProxies), drivers);
+	return mapObjIndexed((driver: Driver, key) => driver(sinkProxies, key), drivers);
 }
 
 function getSources<S extends Sources>(definitions: { [I: string]: SourceDefinition }): S {

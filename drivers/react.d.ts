@@ -12,7 +12,7 @@ export interface RenderSource {
     render: Observable<void>;
 }
 export interface RenderDriver extends Driver {
-    (sinks: RenderSink): RenderSourceDefinition;
+    (sinks: RenderSink, key: string): RenderSourceDefinition;
 }
 export interface RenderDriverDefinition extends Drivers {
     render: RenderDriver;

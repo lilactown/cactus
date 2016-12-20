@@ -16,10 +16,12 @@
     "@types/whatwg-fetch": "^0.0.33",
     "observe-component": "^3.3.1",
     "ramda": "^0.22.1",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
     "rxjs": "^5.0.1",
     "whatwg-fetch": "^2.0.1"
+  },
+  "peerDependencies": {
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
   },
   "devDependencies": {
     "typescript": "^2.1.4"

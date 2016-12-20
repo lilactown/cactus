@@ -56,7 +56,7 @@ export function appAsComponent<P>(
 		componentWillMount() {
             const extDrivers = {
                 ...drivers,
-                state: makeReactStateDriver(({ View, state }) => {
+                render: makeReactStateDriver(({ View, state }) => {
 					const oldState = this.state;
                     if (View !== this.component) {
                         this.component = View;

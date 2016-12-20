@@ -7,8 +7,8 @@ import * as React from 'react';
 import { Counter } from './counter';
 
 function view(model$) {
-    const CounterA = Cactus.observeComponent('onChange')(Counter);
-    const CounterB = Cactus.observeComponent('onChange')(Counter);
+    const CounterA = Cactus.observe('onChange')(Counter);
+    const CounterB = Cactus.observe('onChange')(Counter);
 
     function View({ total }) {
         return (
@@ -21,8 +21,8 @@ function view(model$) {
     }
 
     return Cactus.connectView(View, {
-        counterA: Cactus.fromComponent(CounterA),
-        counterB: Cactus.fromComponent(CounterB),
+        counterA: Cactus.from(CounterA),
+        counterB: Cactus.from(CounterB),
     }, model$);
 }
 

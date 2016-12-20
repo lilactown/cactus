@@ -6,8 +6,8 @@ import * as React from 'react';
 // define our view function which will observe our state
 function view(model$) {
         // define buttons that we can receive 'onClick' events on
-    const IncButton = Cactus.observeComponent('onClick')('button');
-    const DecButton = Cactus.observeComponent('onClick')('button');
+    const IncButton = Cactus.observe('onClick')('button');
+    const DecButton = Cactus.observe('onClick')('button');
 
     // define our react component, serving as our view
     function CounterView({ count }) {
@@ -21,8 +21,8 @@ function view(model$) {
     }
 
     return Cactus.connectView(CounterView, {
-        incButton: Cactus.fromComponent(IncButton),
-        decButton: Cactus.fromComponent(DecButton),
+        incButton: Cactus.from(IncButton),
+        decButton: Cactus.from(DecButton),
     }, model$);
 }
 

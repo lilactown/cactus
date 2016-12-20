@@ -42,7 +42,7 @@ export function view(model$) {
     };
 
     const ItemCheckbox = compose(
-        Cactus.observeComponent<any>('onChange'),
+        Cactus.observe<any>('onChange'),
         Cactus.withProps({
             style: styles.itemCheckbox,
             type: "checkbox",
@@ -50,7 +50,7 @@ export function view(model$) {
     )('input');
 
     const RemoveButton = compose(
-        Cactus.observeComponent<any>('onClick'),
+        Cactus.observe<any>('onClick'),
         Cactus.withProps({
             style: styles.removeButton,
         }),
@@ -82,7 +82,7 @@ export function view(model$) {
     }
 
     const AddTodo = compose(
-        Cactus.observeComponent<any>('onKeyPress', 'onChange'),
+        Cactus.observe<any>('onKeyPress', 'onChange'),
         Cactus.withProps({
             style: styles.addTodo,
             type: "text",
@@ -114,9 +114,9 @@ export function view(model$) {
     return Cactus.connectView<TodoProps>(
         TodoView,
         {
-            itemCheckboxes: Cactus.fromComponent(ItemCheckbox),
-            addTodo: Cactus.fromComponent(AddTodo),
-            removeButton: Cactus.fromComponent(RemoveButton),
+            itemCheckboxes: Cactus.from(ItemCheckbox),
+            addTodo: Cactus.from(AddTodo),
+            removeButton: Cactus.from(RemoveButton),
         },
         model$
     );

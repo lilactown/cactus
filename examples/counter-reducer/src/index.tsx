@@ -3,9 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import * as React from 'react';
 function view(model$) {
-    const IncButton = Cactus.observeComponent('onClick')('button');
-    const DecButton = Cactus.observeComponent('onClick')('button');
-    const IncOddBtn = Cactus.observeComponent('onClick')('button');
+    const IncButton = Cactus.observe('onClick')('button');
+    const DecButton = Cactus.observe('onClick')('button');
+    const IncOddBtn = Cactus.observe('onClick')('button');
 
     function CounterView({ count }) {
         return (
@@ -19,9 +19,9 @@ function view(model$) {
     }
 
     return Cactus.connectView(CounterView, {
-        incButton: Cactus.fromComponent(IncButton),
-        decButton: Cactus.fromComponent(DecButton),
-        incOddBtn: Cactus.fromComponent(IncOddBtn),
+        incButton: Cactus.from(IncButton),
+        decButton: Cactus.from(DecButton),
+        incOddBtn: Cactus.from(IncOddBtn),
     }, model$);
 }
 function main(sources) {

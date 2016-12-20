@@ -5,8 +5,8 @@ import * as React from 'react';
 import { render } from 'react-dom';
 
 function view(model$) {
-    const IncButton = Cactus.observeComponent('onClick')('button');
-    const DecButton = Cactus.observeComponent('onClick')('button');
+    const IncButton = Cactus.observe('onClick')('button');
+    const DecButton = Cactus.observe('onClick')('button');
 
     function CounterView({ count }) {
         return (
@@ -19,8 +19,8 @@ function view(model$) {
     }
 
     return Cactus.connectView(CounterView, {
-        incButton: Cactus.fromComponent(IncButton),
-        decButton: Cactus.fromComponent(DecButton),
+        incButton: Cactus.from(IncButton),
+        decButton: Cactus.from(DecButton),
     }, model$);
 }
 

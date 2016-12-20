@@ -29,14 +29,14 @@ function view(model$) {
 function main(sources) {
     const actions = Cactus.selectable<any>(sources.events);
     const counterA$ = actions.select('counterA')
-        .map(({ value }) => (counts) =>
-            ({ ...counts, counterA: value }));
+        .map(({ value }) => (counters) =>
+            ({ ...counters, counterA: value }));
     const counterB$ = actions.select('counterB')
-        .map(({ value }) => (counts) =>
-            ({ ...counts, counterB: value}));
+        .map(({ value }) => (counters) =>
+            ({ ...counters, counterB: value}));
 
     const model$ = Observable.merge(counterA$, counterB$)
-        .scan((counts, reducer) => reducer(counts), { counterA: 0, counterB: 0 })
+        .scan((counters, reducer) => reducer(counters), { counterA: 0, counterB: 0 })
         .startWith({ counterA: 0, counterB: 0 })
         .map(({ counterA, counterB }) => ({ total: counterA + counterB }))
 

@@ -32,24 +32,21 @@ function connectView(View, events, model$) {
     };
 }
 exports.connectView = connectView;
-function appAsComponent(main, drivers, propsMap, displayName) {
+function injectContext(context, drivers) {
+    const bind = R.map((driver) => driver.bind(context));
+    return R.mapObjIndexed((driver) => {
+        return driver.bind(context);
+    }, drivers);
+}
+function appAsComponent(main, drivers, 
+    // propsMap?: (sinks: any, props: P) => void,
+    displayName) {
     return _a = class App extends React.Component {
             componentWillMount() {
-                const extDrivers = __assign({}, drivers, { render: state_1.makeReactStateDriver(({ View, state }) => {
-                        const oldState = this.state;
-                        if (View !== this.component) {
-                            this.component = View;
-                        }
-                        if (propsMap) {
-                            R.mapObjIndexed((v, k) => {
-                                if (this.props[k]) {
-                                    this.props[k](v(oldState, state));
-                                }
-                            }, propsMap);
-                        }
-                        this.setState(state);
-                    }) });
-                const { run } = Core.App(main, extDrivers);
+                const extDrivers = __assign({}, drivers, { render: state_1.makeReactStateDriver() });
+                const newDrivers = injectContext(this, extDrivers);
+                const { run, sinks } = Core.App(main, newDrivers);
+                // propsMap && propsMap(sinks, this.props);
                 this.dispose = run();
             }
             componentWillUnmount() {

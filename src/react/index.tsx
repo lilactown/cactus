@@ -20,7 +20,6 @@ export interface ViewDelta<P> {
 }
 
 export interface PropsMap {
-	[K: string]: (oldState: any, state: any) => any
 };
 
 function mergeEvents(events: Events): Observable<EventDefinition> {
@@ -46,8 +45,18 @@ export function connectView<P>(View: Component, events: Events, model$: Observab
 	};
 }
 
-export function appAsComponent<P>(
-	main: Core.Main, drivers: Core.Drivers, propsMap?: PropsMap, displayName?: string
+function injectContext(context: any, drivers: Core.Drivers) {
+	const bind = R.map<Core.Driver, void>((driver) => driver.bind(context));
+	return R.mapObjIndexed<any, any>((driver) => {
+		return driver.bind(context);
+	}, drivers);
+}
+
+export function appAsComponent<P, S>(
+	main: Core.Main,
+	drivers: Core.Drivers,
+	// propsMap?: (sinks: any, props: P) => void,
+	displayName?: string
 ): any {
 	return class App extends React.Component<P, any> implements App {
 		static displayName = `App(${displayName || ''})`
@@ -56,22 +65,11 @@ export function appAsComponent<P>(
 		componentWillMount() {
             const extDrivers = {
                 ...drivers,
-                render: makeReactStateDriver(({ View, state }) => {
-					const oldState = this.state;
-                    if (View !== this.component) {
-                        this.component = View;
-                    }
-					if (propsMap) {
-						R.mapObjIndexed((v: (n: any, v: any) => void, k: string) => {
-							if (this.props[k]) {
-								this.props[k](v(oldState, state));
-							}
-						}, propsMap);
-					}
-                    this.setState(state);
-                }),
+                render: makeReactStateDriver(),
             }
-			const { run } = Core.App<Core.Sources, Core.Drivers>(main, extDrivers);
+			const newDrivers = injectContext(this, extDrivers);
+			const { run, sinks } = Core.App<Core.Sources, Core.Drivers>(main, newDrivers);
+			// propsMap && propsMap(sinks, this.props);
 			this.dispose = run();
 		}
 

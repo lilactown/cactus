@@ -41,6 +41,7 @@ function main(sources) {
     const sinks = {
         render: view$,
         events: events$,
+        value: count$,
     };
     return sinks;
 }
@@ -50,11 +51,15 @@ const drivers = {
 };
 
 // create our Cactus app as a good ol'-fashioned  React component
-const Counter = Cactus.appAsComponent(main, drivers, {
+const Counter = Cactus.appAsComponent(main, drivers,
     // we can also define a "props map" that will map our state
     // to properties that we can use as a public API
-    onChange: (oldState, { count }) => count,
-});
+    // (sinks, props: any) => {
+    //     sinks.value.subscribe(({ count }) => {
+    //         props.onChange && props.onChange(count)
+    //     });
+    // }
+);
 
 // render it as you do
 render(

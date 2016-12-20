@@ -17,4 +17,4 @@ export interface StateDriver extends Driver {
 export interface StateDriverDefinition extends Drivers {
     state: StateDriver;
 }
-export declare function makeReactStateDriver(cb: (v: any) => void): StateDriver;
+export declare function makeReactStateDriver(): StateDriver;

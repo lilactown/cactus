@@ -3,11 +3,15 @@
 ;
 ;
 ;
-function makeReactStateDriver(cb) {
-    return (sinkProxies, key) => {
+function makeReactStateDriver() {
+    return function stateDriver(sinkProxies, key) {
         const proxy = sinkProxies[key];
         const source = proxy.map(({ View, state }) => {
-            cb({ View, state });
+            const oldState = this.state;
+            if (View !== this.component) {
+                this.component = View;
+            }
+            this.setState(state);
         });
         const subscription = source.subscribe();
         const dispose = () => subscription.unsubscribe();

@@ -48,18 +48,11 @@ function main(sources) {
 
 const drivers = {
     events: Cactus.makeEventDriver(),
+    value: Cactus.makeReactPropsDriver('onChange'),
 };
 
 // create our Cactus app as a good ol'-fashioned  React component
-const Counter = Cactus.appAsComponent(main, drivers,
-    // we can also define a "props map" that will map our state
-    // to properties that we can use as a public API
-    // (sinks, props: any) => {
-    //     sinks.value.subscribe(({ count }) => {
-    //         props.onChange && props.onChange(count)
-    //     });
-    // }
-);
+const Counter = Cactus.appAsComponent(main, drivers);
 
 // render it as you do
 render(

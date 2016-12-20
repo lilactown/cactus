@@ -35,9 +35,9 @@ exports.connectView = connectView;
 function appAsComponent(main, drivers, propsMap, displayName) {
     return _a = class App extends React.Component {
             componentWillMount() {
-                const extDrivers = __assign({}, drivers, { state: state_1.makeReactStateDriver(({ View, state }) => {
+                const extDrivers = __assign({}, drivers, { render: state_1.makeReactStateDriver(({ View, state }) => {
                         const oldState = this.state;
-                        if (!this.component) {
+                        if (View !== this.component) {
                             this.component = View;
                         }
                         if (propsMap) {

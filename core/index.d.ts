@@ -11,7 +11,7 @@ export interface Sources {
     [N: string]: Source<any>;
 }
 export interface Driver {
-    (sinks: Sinks): SourceDefinition;
+    (sinks: Sinks, key: string): SourceDefinition;
 }
 export interface Drivers {
     [K: string]: Driver;

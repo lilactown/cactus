@@ -39,7 +39,7 @@ function main(sources) {
     const { view$, events$ } = view(count$);
     
     const sinks = {
-        render: view$,
+        state: view$,
         events: events$,
     };
     return sinks;

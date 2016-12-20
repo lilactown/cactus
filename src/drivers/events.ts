@@ -24,14 +24,14 @@ export interface EventSource {
 };
 
 export interface EventDriver extends Driver {
-    (sinks: EventSink): EventSourceDefinition;
+    (sinks: EventSink, key: string): EventSourceDefinition;
 };
 
 export interface EventDriverDefinition extends Drivers {
     events: EventDriver,
 };
 
-export function makeEventDriver() {
+export function makeEventDriver(): EventDriver {
 	return (sinkProxies: EventSink, key: string) => {
 		const proxy = sinkProxies[key];
         const source = proxy;

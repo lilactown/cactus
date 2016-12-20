@@ -12,12 +12,9 @@ export interface EventSource {
     events: Observable<EventDefinition>;
 }
 export interface EventDriver extends Driver {
-    (sinks: EventSink): EventSourceDefinition;
+    (sinks: EventSink, key: string): EventSourceDefinition;
 }
 export interface EventDriverDefinition extends Drivers {
     events: EventDriver;
 }
-export declare function makeEventDriver(): (sinkProxies: EventSink, key: string) => {
-    source: Observable<any>;
-    dispose: () => void;
-};
+export declare function makeEventDriver(): EventDriver;

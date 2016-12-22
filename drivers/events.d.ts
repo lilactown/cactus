@@ -17,4 +17,4 @@ export interface EventDriver extends Driver {
 export interface EventDriverDefinition extends Drivers {
     events: EventDriver;
 }
-export declare function makeEventDriver(): EventDriver;
+export declare function makeEventDriver(persist?: boolean): EventDriver;

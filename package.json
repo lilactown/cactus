@@ -5,6 +5,10 @@
   "main": "index.js",
   "author": "Will Acton",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lokeh/cactus.git"
+  },
   "scripts": {
     "build": "./build.sh"
   },
@@ -25,5 +29,9 @@
   },
   "devDependencies": {
     "typescript": "^2.1.4"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Lokeh/cactus/issues"
+  },
+  "homepage": "https://github.com/Lokeh/cactus#readme"
 }

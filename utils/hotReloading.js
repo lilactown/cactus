@@ -30,6 +30,7 @@ function makeHotDriver(driver) {
         };
     };
 }
+exports.makeHotDriver = makeHotDriver;
 function makeHot(drivers) {
     // apply makeHotDriver to each driver definition
     const hotDrivers = R.mapObjIndexed(makeHotDriver);

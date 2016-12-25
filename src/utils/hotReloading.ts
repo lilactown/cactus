@@ -2,7 +2,7 @@ import * as Core from '../core';
 import * as Rx from 'rxjs/Rx';
 import * as R from 'ramda';
 
-function makeHotDriver(driver: Core.Driver) {
+export function makeHotDriver(driver: Core.Driver): Core.Driver {
     const hotSource = new Rx.ReplaySubject<any>();
     let hotSubscription: Rx.Subscription;
     let originalDispose: Core.DisposeFn;
